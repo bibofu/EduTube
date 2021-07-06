@@ -4,8 +4,10 @@ package com.cqu.eduservice.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqu.commonutils.R;
+import com.cqu.eduservice.entity.EduHistory;
 import com.cqu.eduservice.entity.EduTeacher;
 import com.cqu.eduservice.entity.vo.TeacherQuery;
+import com.cqu.eduservice.service.EduHistoryService;
 import com.cqu.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +34,9 @@ public class EduTeacherController {
     @Autowired
     private EduTeacherService teacherService;
 
+    @Autowired
+    private EduHistoryService historyService;
+
 
 
     //1. 查询讲师表所有数据
@@ -40,6 +45,12 @@ public class EduTeacherController {
     public R finaAll(){
 
         List<EduTeacher> list = teacherService.list(null);
+
+
+        EduHistory history=new EduHistory();
+        history.setDescription("查询所有讲师");
+        historyService.save(history);
+
         return R.ok().data("teacher",list);
 
     }
@@ -51,6 +62,10 @@ public class EduTeacherController {
 
         boolean b = teacherService.removeById(id);
         if (b){
+            EduHistory history=new EduHistory();
+            history.setDescription("删除id为"+id+"的讲师");
+            historyService.save(history);
+
             return R.ok();
 
         }else{
@@ -69,6 +84,10 @@ public class EduTeacherController {
 
         long total = page.getTotal();
         List<EduTeacher> records = page.getRecords();
+
+        EduHistory history=new EduHistory();
+        history.setDescription("分页查询讲师");
+        historyService.save(history);
 
 
         return R.ok().data("total",total).data("rows",records);
@@ -109,6 +128,10 @@ public class EduTeacherController {
         long total = teacherPage.getTotal();
         List<EduTeacher> records = teacherPage.getRecords();
 
+        EduHistory history=new EduHistory();
+        history.setDescription("条件查询(带分页)讲师");
+        historyService.save(history);
+
         return R.ok().data("total",total).data("rows",records);
 
     }
@@ -120,7 +143,12 @@ public class EduTeacherController {
 
         boolean save = teacherService.save(teacher);
 
+        String id = teacher.getId();
+
         if (save){
+            EduHistory history=new EduHistory();
+            history.setDescription("添加讲师,id为"+id);
+            historyService.save(history);
             return R.ok();
         }else{
             return R.error();
@@ -135,6 +163,10 @@ public class EduTeacherController {
     public R getTeacher(@PathVariable String id){
         EduTeacher teacher = teacherService.getById(id);
 
+        EduHistory history=new EduHistory();
+        history.setDescription("查询讲师,id为"+id);
+        historyService.save(history);
+
         return R.ok().data("teacher",teacher);
     }
 
@@ -143,8 +175,14 @@ public class EduTeacherController {
     @PostMapping("updateTeacher")
     public R updateTeacher(@RequestBody EduTeacher teacher){
 
+        String id = teacher.getId();
+
         boolean b = teacherService.updateById(teacher);
         if (b){
+            EduHistory history=new EduHistory();
+            history.setDescription("修改讲师,id为"+id);
+            historyService.save(history);
+
             return R.ok();
         }else{
             return R.error();
