@@ -3,15 +3,15 @@ package com.cqu.eduservice.controller;
 
 import com.cqu.commonutils.R;
 import com.cqu.eduservice.service.EduSubjectService;
+import com.cqu.eduservice.subject.OneSubject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -38,6 +38,16 @@ public class EduSubjectController {
 
         subjectService.saveSubject(file,subjectService);
         return R.ok();
+    }
+
+    //2. 课程分类列表
+    @GetMapping("getAllSubject")
+    public R getAll(){
+
+        List<OneSubject> subjectList=subjectService.getSubjectInfo();
+
+        return R.ok().data("subjectList",subjectList);
+
     }
 
 

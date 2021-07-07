@@ -1,6 +1,7 @@
 package com.cqu.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqu.commonutils.R;
@@ -195,6 +196,20 @@ public class EduTeacherController {
     public R history(){
         List<EduHistory> list = historyService.list(null);
         return R.ok().data("history",list);
+    }
+
+    //9. 获取最新10条操作记录
+    @ApiOperation(value = "获取最新10条操作记录")
+    @GetMapping("newhistory")
+    public R newhistory(){
+        QueryWrapper<EduHistory> wrapper=new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        wrapper.last("limit 10");
+
+        List<EduHistory> list = historyService.list(wrapper);
+
+        return R.ok().data("newhistory",list);
+
     }
 
 
