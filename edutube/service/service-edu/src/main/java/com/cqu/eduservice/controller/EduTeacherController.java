@@ -189,6 +189,13 @@ public class EduTeacherController {
         }
     }
 
+    //8. 获取操作讲师记录
+    @ApiOperation(value = "讲师操作记录")
+    @GetMapping("history")
+    public R history(){
+        List<EduHistory> list = historyService.list(null);
+        return R.ok().data("history",list);
+    }
 
 
 
