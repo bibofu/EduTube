@@ -61,10 +61,13 @@ public class EduTeacherController {
     @DeleteMapping("{id}")
     public R delete(@PathVariable String id){
 
+        EduTeacher teacher = teacherService.getById(id);
+        String name = teacher.getName();
+
         boolean b = teacherService.removeById(id);
         if (b){
             EduHistory history=new EduHistory();
-            history.setDescription("删除id为"+id+"的讲师");
+            history.setDescription("删除名字为"+name+"的讲师");
             historyService.save(history);
 
             return R.ok();
@@ -145,10 +148,11 @@ public class EduTeacherController {
         boolean save = teacherService.save(teacher);
 
         String id = teacher.getId();
+        String name = teacher.getName();
 
         if (save){
             EduHistory history=new EduHistory();
-            history.setDescription("添加讲师,id为"+id);
+            history.setDescription("添加讲师,名字为"+name+"id为"+id);
             historyService.save(history);
             return R.ok();
         }else{
@@ -177,11 +181,12 @@ public class EduTeacherController {
     public R updateTeacher(@RequestBody EduTeacher teacher){
 
         String id = teacher.getId();
+        String name = teacher.getName();
 
         boolean b = teacherService.updateById(teacher);
         if (b){
             EduHistory history=new EduHistory();
-            history.setDescription("修改讲师,id为"+id);
+            history.setDescription("修改讲师,id为"+id+" 名字为"+name);
             historyService.save(history);
 
             return R.ok();

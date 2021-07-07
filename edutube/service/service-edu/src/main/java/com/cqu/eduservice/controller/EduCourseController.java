@@ -3,6 +3,7 @@ package com.cqu.eduservice.controller;
 
 import com.cqu.commonutils.R;
 import com.cqu.eduservice.entity.vo.CourseInfoVo;
+import com.cqu.eduservice.entity.vo.CoursePublishVo;
 import com.cqu.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @Api(description = "课程操作")
 @RestController
-@RequestMapping("/eduservice/edu-course")
+@RequestMapping("/eduservice/course")
 @CrossOrigin
 public class EduCourseController {
 
@@ -58,6 +59,18 @@ public class EduCourseController {
         courseService.updateCourseInfo(courseInfoVo);
         return R.ok();
     }
+
+    //4. 获取发布时课程信息
+    @ApiOperation(value = "获取课程publish前信息")
+    @GetMapping("getPublishCourseInfo/{id}")
+    public R getPublishCourseInfo(@PathVariable String id){
+        CoursePublishVo coursePublish=courseService.coursePublishInfo(id);
+        return R.ok().data("coursePublish",coursePublish);
+    }
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@ package com.cqu.eduservice.controller;
 
 
 import com.cqu.commonutils.R;
+import com.cqu.eduservice.entity.EduChapter;
 import com.cqu.eduservice.entity.chapter.ChapterVo;
 import com.cqu.eduservice.service.EduChapterService;
 import io.swagger.annotations.Api;
@@ -42,6 +43,53 @@ public class EduChapterController {
 
 
     }
+
+    //2 添加章节
+    @PostMapping("addChapter")
+    public R addChapter(@RequestBody EduChapter chapter){
+        chapterService.save(chapter);
+        return R.ok();
+    }
+
+
+
+    //3 根据章节id查询
+    @GetMapping("getChapterInfo/{chapterId}")
+    public R getChapter(@PathVariable String chapterId){
+
+        EduChapter chapter = chapterService.getById(chapterId);
+        return R.ok().data("chapter",chapter);
+    }
+
+
+
+    //4 修改章节
+    @PostMapping("updateChapter")
+    public R update(@RequestBody EduChapter chapter){
+
+        chapterService.updateById(chapter);
+
+        return R.ok();
+    }
+
+    //5 删除章节
+    @DeleteMapping("{chapterId}")
+    public R delete(@PathVariable String chapterId){
+
+        boolean flag = chapterService.deleteChapter(chapterId);
+
+        if (flag){
+            return R.ok();
+
+        }else{
+
+            return R.error();
+
+        }
+
+
+    }
+
 
 
 

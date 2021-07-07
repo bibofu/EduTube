@@ -3,6 +3,7 @@ package com.cqu.eduservice.service;
 import com.cqu.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cqu.eduservice.entity.vo.CourseInfoVo;
+import com.cqu.eduservice.entity.vo.CoursePublishVo;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface EduCourseService extends IService<EduCourse> {
     CourseInfoVo getCourseInfo(String courseId);
 
     void updateCourseInfo(CourseInfoVo courseInfoVo);
+
+    CoursePublishVo coursePublishInfo(String id);
 }
