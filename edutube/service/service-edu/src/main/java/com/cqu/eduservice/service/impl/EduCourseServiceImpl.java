@@ -113,4 +113,18 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         CoursePublishVo publishCourseInfo = baseMapper.getPublishCourseInfo(id);
         return publishCourseInfo;
     }
+
+    @Override
+    public boolean removeCourse(String courseId) {
+
+        //根据id删除所有视频
+        eduVideoService.removeVideoByCourseId(courseId);
+        //根据id删除所有章节
+        chapterService.removeChapterByCourseId(courseId);
+        Integer result = baseMapper.deleteById(courseId);
+        return null != result && result > 0;
+
+
+
+    }
 }

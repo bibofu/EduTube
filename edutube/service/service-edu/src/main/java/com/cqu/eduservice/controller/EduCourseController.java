@@ -2,6 +2,7 @@ package com.cqu.eduservice.controller;
 
 
 import com.cqu.commonutils.R;
+import com.cqu.eduservice.entity.EduCourse;
 import com.cqu.eduservice.entity.vo.CourseInfoVo;
 import com.cqu.eduservice.entity.vo.CoursePublishVo;
 import com.cqu.eduservice.service.EduCourseService;
@@ -66,6 +67,39 @@ public class EduCourseController {
     public R getPublishCourseInfo(@PathVariable String id){
         CoursePublishVo coursePublish=courseService.coursePublishInfo(id);
         return R.ok().data("coursePublish",coursePublish);
+    }
+
+    //5. 课程最终发布，修改课程状态
+    @ApiOperation("发布课程，改变发布状态")
+    @PostMapping("publishCourse/{id}")
+    public R publishCourse(@PathVariable String id) {
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(id);
+        eduCourse.setStatus("Normal");//设置课程发布状态
+        courseService.updateById(eduCourse);
+        return R.ok();
+    }
+
+    //6. 获取课程信息
+    @ApiOperation(value = "获取课程信息")
+    @GetMapping
+    public R getCourse(){
+
+        List<EduCourse> courseList = courseService.list(null);
+        return R.ok().data("courseList",courseList);
+    }
+
+
+    //7. 删除课程
+    @ApiOperation(value = "根据课程id删除课程")
+    @DeleteMapping("{courseId}")
+    public R deleteCourse(@PathVariable String courseId) {
+        boolean result = courseService.removeCourse(courseId);
+        if(result){
+            return R.ok();
+        }else{
+            return R.error().message("删除失败");
+        }
     }
 
 
