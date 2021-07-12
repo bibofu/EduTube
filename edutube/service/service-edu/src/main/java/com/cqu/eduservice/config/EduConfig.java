@@ -16,7 +16,9 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan("com.cqu.eduservice.mapper")
 public class EduConfig {
 
-    //逻辑删除插件
+    /**
+    逻辑删除插件
+     */
 
     @Bean
     public ISqlInjector sqlInjector(){

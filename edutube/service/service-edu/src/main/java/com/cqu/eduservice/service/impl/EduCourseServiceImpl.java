@@ -42,6 +42,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     /**
      * 向课程表和课程描述表添加数据
+     *
      * @param courseInfoVo
      */
     @Override
@@ -50,11 +51,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         //1 向课程表添加课程基本信息
         //CourseInfoVo对象转换eduCourse对象
         EduCourse eduCourse = new EduCourse();
-        BeanUtils.copyProperties(courseInfoVo,eduCourse);
+        BeanUtils.copyProperties(courseInfoVo, eduCourse);
         int insert = baseMapper.insert(eduCourse);
-        if(insert == 0) {
+        if (insert == 0) {
             //添加失败
-            throw new MyException(20001,"添加课程信息失败");
+            throw new MyException(20001, "添加课程信息失败");
         }
 
         //获取添加之后课程id
@@ -69,18 +70,14 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         courseDescriptionService.save(courseDescription);
 
 
-
-
-
-
     }
 
     @Override
     public CourseInfoVo getCourseInfo(String courseId) {
         EduCourse course = baseMapper.selectById(courseId);
 
-        CourseInfoVo vo=new CourseInfoVo();
-        BeanUtils.copyProperties(course,vo);
+        CourseInfoVo vo = new CourseInfoVo();
+        BeanUtils.copyProperties(course, vo);
 
         EduCourseDescription description = courseDescriptionService.getById(courseId);
         vo.setDescription(description.getDescription());
@@ -93,10 +90,10 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         //1 修改课程表
         EduCourse eduCourse = new EduCourse();
-        BeanUtils.copyProperties(courseInfoVo,eduCourse);
+        BeanUtils.copyProperties(courseInfoVo, eduCourse);
         int update = baseMapper.updateById(eduCourse);
-        if(update == 0) {
-            throw new MyException(20001,"修改课程信息失败");
+        if (update == 0) {
+            throw new MyException(20001, "修改课程信息失败");
         }
 
         //2 修改描述表
@@ -115,16 +112,25 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     }
 
     @Override
-    public boolean removeCourse(String courseId) {
+    public void removeCourse(String courseId) {
 
-        //根据id删除所有视频
+        //1 根据课程id删除小节
         eduVideoService.removeVideoByCourseId(courseId);
-        //根据id删除所有章节
-        chapterService.removeChapterByCourseId(courseId);
-        Integer result = baseMapper.deleteById(courseId);
-        return null != result && result > 0;
 
+        //2 根据课程id删除章节
+        chapterService.removeChapterByCourseId(courseId);
+
+        //3 根据课程id删除描述
+        courseDescriptionService.removeById(courseId);
+
+        //4 根据课程id删除课程本身
+        int result = baseMapper.deleteById(courseId);
+        if (result == 0) { //失败返回
+            throw new MyException(20001, "删除失败");
+        }
 
 
     }
+
+
 }
