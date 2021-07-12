@@ -103,8 +103,10 @@ public class EduCourseController {
     @PostMapping("pageConditionCourse")
     public R pageConditionCourse()
     {
-        for(int i=1;i<=11;i++)
-            System.out.println(i);
+        for(int i=1;i<=11;i++) {
+            System.out.println(i*i);
+            System.out.println("hello");
+        }
         return R.ok();
     }
 
