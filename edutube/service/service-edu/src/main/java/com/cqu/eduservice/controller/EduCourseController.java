@@ -99,6 +99,13 @@ public class EduCourseController {
         return R.ok();
     }
 
+    @ApiOperation(value = "条件分页查询课程")
+    @PostMapping("pageConditionCourse")
+    public R pageConditonCourse()
+    {
+
+        return R.ok();
+    }
 
 
 }
