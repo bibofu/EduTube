@@ -5,6 +5,7 @@ import com.cqu.commonutils.R;
 import com.cqu.eduservice.client.VodClient;
 import com.cqu.eduservice.entity.EduVideo;
 import com.cqu.eduservice.service.EduVideoService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
  * @author fubibo
  * @since 2021-07-07
  */
+
+@Api(description = "小节管理")
 @RestController
 @RequestMapping("/eduservice/video")
 public class EduVideoController {
@@ -56,7 +59,8 @@ public class EduVideoController {
         return R.ok();
     }
 
-    //修改章节
+    //修改小节
+    @ApiOperation(value = "修改小节")
     @PostMapping("updateVideo")
     public R updateVideo(@RequestBody EduVideo video){
         videoService.updateById(video);

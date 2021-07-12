@@ -81,7 +81,7 @@ public class EduCourseController {
     }
 
     //6. 获取课程信息
-    @ApiOperation(value = "获取课程信息")
+    @ApiOperation(value = "获取课程列表")
     @GetMapping
     public R getCourse(){
 

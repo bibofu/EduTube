@@ -152,7 +152,7 @@ public class EduTeacherController {
 
         if (save){
             EduHistory history=new EduHistory();
-            history.setDescription("添加讲师,名字为"+name+",id为"+id);
+            history.setDescription("添加讲师,名字为:"+name+",id为:"+id);
             historyService.save(history);
             return R.ok();
         }else{
@@ -167,9 +167,10 @@ public class EduTeacherController {
     @GetMapping("getTeacher/{id}")
     public R getTeacher(@PathVariable String id){
         EduTeacher teacher = teacherService.getById(id);
+        String name = teacher.getName();
 
         EduHistory history=new EduHistory();
-        history.setDescription("查询讲师,id为"+id);
+        history.setDescription("查询讲师,id为:"+id+",名字为:"+name);
         historyService.save(history);
 
         return R.ok().data("teacher",teacher);
@@ -186,7 +187,7 @@ public class EduTeacherController {
         boolean b = teacherService.updateById(teacher);
         if (b){
             EduHistory history=new EduHistory();
-            history.setDescription("修改讲师,id为"+id+",名字为"+name);
+            history.setDescription("修改讲师,id为:"+id+",名字为:"+name);
             historyService.save(history);
 
             return R.ok();
