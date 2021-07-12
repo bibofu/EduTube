@@ -101,9 +101,10 @@ public class EduCourseController {
 
     @ApiOperation(value = "条件分页查询课程")
     @PostMapping("pageConditionCourse")
-    public R pageConditonCourse()
+    public R pageConditionCourse()
     {
-
+        for(int i=1;i<=11;i++)
+            System.out.println(i);
         return R.ok();
     }
 
