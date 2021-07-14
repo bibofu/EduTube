@@ -2,6 +2,7 @@ package com.cqu.eduservice.controller;
 
 
 import com.cqu.commonutils.R;
+import com.cqu.eduservice.entity.EduSubject;
 import com.cqu.eduservice.service.EduSubjectService;
 import com.cqu.eduservice.subject.OneSubject;
 import io.swagger.annotations.Api;
@@ -50,6 +51,13 @@ public class EduSubjectController {
 
     }
 
+    @ApiOperation(value = "添加一个课程分类")
+    @PostMapping("addOneSubject")
+    public R addOneSubject(@RequestBody EduSubject eduSubject)
+    {
+        subjectService.save(eduSubject);
+        return R.ok();
+    }
 
 }
 

@@ -1,13 +1,18 @@
 package com.cqu.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqu.commonutils.R;
 import com.cqu.eduservice.entity.EduCourse;
+import com.cqu.eduservice.entity.EduTeacher;
 import com.cqu.eduservice.entity.vo.CourseInfoVo;
 import com.cqu.eduservice.entity.vo.CoursePublishVo;
+import com.cqu.eduservice.entity.vo.CourseQuery;
 import com.cqu.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -100,14 +105,20 @@ public class EduCourseController {
     }
 
     @ApiOperation(value = "条件分页查询课程")
-    @PostMapping("pageConditionCourse")
-    public R pageConditionCourse()
+    @PostMapping("pageConditionCourse/{current}/{limit}")
+    public R pageConditionCourse(@PathVariable long current, @PathVariable long limit,@RequestBody(required = false) CourseQuery courseQuery)
     {
-        for(int i=1;i<=11;i++) {
-            System.out.println(i*i);
-            System.out.println("hello");
+        Page<EduCourse> page=new Page<>(current,limit);
+        QueryWrapper<EduCourse>queryWrapper=new QueryWrapper<>();
+        String name=courseQuery.getName();
+        if(!StringUtils.isEmpty(name))
+        {
+            queryWrapper.like("title",name);
         }
-        return R.ok();
+        courseService.page(page,queryWrapper);
+        long total = page.getTotal();
+        List<EduCourse> records = page.getRecords();
+        return R.ok().data("total",total).data("rows",records);
     }
 
 
