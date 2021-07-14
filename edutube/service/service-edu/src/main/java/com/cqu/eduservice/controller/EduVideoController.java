@@ -28,6 +28,7 @@ public class EduVideoController {
     @Autowired
     private EduVideoService videoService;
 
+    @Autowired
     private VodClient vodClient;
 
 
@@ -42,7 +43,6 @@ public class EduVideoController {
     }
 
     //2. 删除小节
-    //todo
     @ApiOperation(value = "根据小节id删除视频")
     @DeleteMapping("{id}")
     public R deleteVideo(@PathVariable String id){

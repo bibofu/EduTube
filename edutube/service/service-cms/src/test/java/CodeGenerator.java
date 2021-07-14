@@ -1,5 +1,3 @@
-package com.cqu.demo;
-
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -26,7 +24,7 @@ public class CodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("D:\\test\\EduTube\\edutube\\service\\service-edu" + "/src/main/java");
+        gc.setOutputDir("D:\\test\\EduTube\\edutube\\service\\service-cms" + "/src/main/java");
 
         gc.setAuthor("CGT");
         gc.setOpen(false); //生成后是否打开资源管理器
@@ -51,7 +49,7 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
 
         pc.setParent("com.cqu");
-        pc.setModuleName("eduservice"); //模块名
+        pc.setModuleName("cms"); //模块名
         pc.setController("controller");
         pc.setEntity("entity");
         pc.setService("service");
@@ -60,7 +58,7 @@ public class CodeGenerator {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("edu_activity");
+        strategy.setInclude("crm_banner");
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 
