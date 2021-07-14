@@ -38,7 +38,7 @@ public class MemberController {
         return R.ok().data("token",token);
     }
 
-    /*@ApiOperation(value = "会员注册")
+    @ApiOperation(value = "会员注册")
     @PostMapping("register")
     public R register(@RequestBody RegisterVo registerVo)
     {
@@ -58,6 +58,6 @@ public class MemberController {
             e.printStackTrace();
             throw new MyException(20001,"error");
         }
-    }*/
+    }
 }
 
