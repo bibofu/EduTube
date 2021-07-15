@@ -11,6 +11,7 @@ import com.cqu.ucenter.entity.Vo.RegisterVo;
 import com.cqu.ucenter.mapper.MemberMapper;
 import com.cqu.ucenter.service.MemberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -90,6 +91,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     @Override
     public LoginInfoVo getLoginInfo(String memberId) {
-        return null;
+        Member member = baseMapper.selectById(memberId);
+        LoginInfoVo loginInfoVo = new LoginInfoVo();
+        BeanUtils.copyProperties(member, loginInfoVo);
+        return loginInfoVo;
     }
 }
