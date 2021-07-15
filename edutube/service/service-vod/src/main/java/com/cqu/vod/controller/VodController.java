@@ -2,6 +2,9 @@ package com.cqu.vod.controller;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoInfoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.cqu.commonutils.R;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.vod.service.VodService;
@@ -28,8 +31,6 @@ public class VodController {
 
     @Autowired
     private VodService vodService;
-
-
 
     //1. 上传视频到阿里云
     @ApiOperation(value = "上传视频方法")
@@ -58,6 +59,23 @@ public class VodController {
     public R deleteBatch(@RequestParam("videoIdList") List<String> videoIdList) {
         vodService.removeMoreAlyVideo(videoIdList);
         return R.ok();
+    }
+
+    @ApiOperation(value = "获取视频凭证")
+    @GetMapping("getPlayAuth/{id}")
+    public R getPlayAuth(@PathVariable String id)
+    {
+        try {
+            DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
+            GetVideoPlayAuthRequest getVideoPlayAuthRequest = new GetVideoPlayAuthRequest();
+            getVideoPlayAuthRequest.setVideoId(id);
+            GetVideoPlayAuthResponse response = client.getAcsResponse(getVideoPlayAuthRequest);
+            String Auth=response.getPlayAuth();
+            return R.ok().data("Auth",Auth);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new MyException(20001,"凭证获取失败");
+        }
     }
 
 }

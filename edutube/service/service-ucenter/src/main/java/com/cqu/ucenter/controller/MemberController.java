@@ -90,6 +90,11 @@ public class MemberController {
         return R.ok().data("info",info);
     }
 
+    @GetMapping(value = "countregister/{day}")
+    public R registerCount(@PathVariable String day){
+        Integer count = memberService.countRegisterByDay(day);
+        return R.ok().data("countRegister", count);
+    }
     // 根据用户id获取订单用户信息
     @GetMapping("getUserInfoOrder/{id}")
     public UcenterMemberOrder getUserInfoOrder(@PathVariable String id){
@@ -100,8 +105,6 @@ public class MemberController {
 
         return memberOrder;
     }
-
-
 
 }
 
