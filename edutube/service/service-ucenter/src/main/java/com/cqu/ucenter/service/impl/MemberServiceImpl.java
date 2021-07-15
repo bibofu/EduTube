@@ -96,4 +96,12 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         BeanUtils.copyProperties(member, loginInfoVo);
         return loginInfoVo;
     }
+
+    @Override
+    public Member getByOpenId(String openid) {
+        QueryWrapper<Member>wrapper=new QueryWrapper<>();
+        wrapper.eq("openid",openid);
+        Member member=baseMapper.selectOne(wrapper);
+        return member;
+    }
 }

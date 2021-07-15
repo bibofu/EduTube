@@ -21,4 +21,6 @@ public interface MemberService extends IService<Member> {
     void register(RegisterVo registerVo);
 
     LoginInfoVo getLoginInfo(String memberId);
+
+    Member getByOpenId(String openid);
 }
