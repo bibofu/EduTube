@@ -3,6 +3,7 @@ package com.cqu.ucenter.controller;
 
 import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.R;
+import com.cqu.commonutils.uservo.LoginInfoVo;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.ucenter.entity.Member;
 import com.cqu.ucenter.entity.Vo.LoginVo;
@@ -87,7 +88,10 @@ public class MemberController {
         return R.ok().data("info",info);
     }
 
-
-
+    @GetMapping(value = "countregister/{day}")
+    public R registerCount(@PathVariable String day){
+        Integer count = memberService.countRegisterByDay(day);
+        return R.ok().data("countRegister", count);
+    }
 }
 

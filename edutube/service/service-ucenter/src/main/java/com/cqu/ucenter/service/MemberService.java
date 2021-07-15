@@ -1,5 +1,6 @@
 package com.cqu.ucenter.service;
 
+import com.cqu.commonutils.uservo.LoginInfoVo;
 import com.cqu.ucenter.entity.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cqu.ucenter.entity.Vo.LoginVo;
@@ -22,4 +23,6 @@ public interface MemberService extends IService<Member> {
     LoginInfoVo getLoginInfo(String memberId);
 
     Member getByOpenId(String openid);
+
+    Integer countRegisterByDay(String day);
 }

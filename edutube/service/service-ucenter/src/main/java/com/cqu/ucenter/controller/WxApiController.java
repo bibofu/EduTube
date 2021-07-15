@@ -29,6 +29,8 @@ import java.util.HashMap;
 public class WxApiController {
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private ConstantWxUtils constantWxUtils;
     @ApiOperation(value = "获取回调")
     @GetMapping("callback")
     public String callback(String code, String state, HttpSession httpSession){
@@ -40,8 +42,8 @@ public class WxApiController {
                         "&code=%s" +
                         "&grant_type=authorization_code";
         String accessTokenUrl = String.format(baseAccessTokenUrl,
-                ConstantWxUtils.WX_OPEN_APP_ID,
-                ConstantWxUtils.WX_OPEN_APP_SECRET,
+                constantWxUtils.WX_OPEN_APP_ID,
+                constantWxUtils.WX_OPEN_APP_SECRET,
                 code);
         String result=null;
         try {
@@ -89,7 +91,7 @@ public class WxApiController {
                 "&scope=snsapi_login" +
                 "&state=%s" +
                 "#wechat_redirect";
-        String redirctUrl=ConstantWxUtils.WX_OPEN_REDIRECT_URL;
+        String redirctUrl=constantWxUtils.WX_OPEN_REDIRECT_URL;
         try {
             redirctUrl = URLEncoder.encode(redirctUrl, "utf-8");
         }catch (Exception e)
@@ -98,7 +100,7 @@ public class WxApiController {
         }
         String url=String.format(
                 baseUrl,
-                ConstantWxUtils.WX_OPEN_APP_ID,
+                constantWxUtils.WX_OPEN_APP_ID,
                 redirctUrl,
                 "EduTube"
         );

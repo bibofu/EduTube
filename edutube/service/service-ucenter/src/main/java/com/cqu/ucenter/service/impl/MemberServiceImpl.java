@@ -3,6 +3,7 @@ package com.cqu.ucenter.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.MD5;
+import com.cqu.commonutils.uservo.LoginInfoVo;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.ucenter.entity.Member;
 import com.cqu.ucenter.entity.Vo.LoginVo;
@@ -102,5 +103,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         wrapper.eq("openid",openid);
         Member member=baseMapper.selectOne(wrapper);
         return member;
+    }
+
+    @Override
+    public Integer countRegisterByDay(String day) {
+        return baseMapper.selectRegisterCount(day);
     }
 }
