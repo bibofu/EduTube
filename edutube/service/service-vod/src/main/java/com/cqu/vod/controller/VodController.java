@@ -31,9 +31,6 @@ public class VodController {
 
 
 
-
-
-
     //1. 上传视频到阿里云
     @ApiOperation(value = "上传视频方法")
     @PostMapping("uploadVideo")

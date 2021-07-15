@@ -1,6 +1,6 @@
 package com.cqu.eduservice.client;
 
-import com.cqu.ucenter.entity.Vo.LoginInfoVo;
+import com.cqu.commonutils.uservo.LoginInfoVo;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

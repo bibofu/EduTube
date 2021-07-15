@@ -6,6 +6,8 @@ import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.R;
 import com.cqu.orderservice.entity.TOrder;
 import com.cqu.orderservice.service.TOrderService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author fubibo
  * @since 2021-07-15
  */
+
+@Api(description = "订单管理")
 @RestController
 @RequestMapping("/orderservice/order")
 @CrossOrigin
@@ -28,6 +32,7 @@ public class TOrderController {
     private TOrderService orderService;
 
     // 1 生成订单方法
+    @ApiOperation(value = "根据课程id生成订单")
     @PostMapping("createOrder/{courseId}")
     public R createOrder(@PathVariable String courseId, HttpServletRequest request){
 
@@ -39,6 +44,7 @@ public class TOrderController {
     }
 
     // 2 根据订单id生成订单信息
+    @ApiOperation(value = "根据订单id查看订单信息")
     @GetMapping("getOrderInfo/{orderId}")
     public R getOrderInfo(@PathVariable String orderId){
 
@@ -50,6 +56,7 @@ public class TOrderController {
     }
 
     //根据课程id和用户id查询订单表中订单状态
+    @ApiOperation(value = "根据课程id和用户id查询订单状态")
     @GetMapping("isBuyCourse/{courseId}/{memberId}")
     public boolean isBuyCourse(@PathVariable String courseId,@PathVariable String memberId) {
         QueryWrapper<TOrder> wrapper = new QueryWrapper<>();

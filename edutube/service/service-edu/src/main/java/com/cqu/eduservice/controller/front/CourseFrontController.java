@@ -62,11 +62,13 @@ public class CourseFrontController {
         return R.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVideoList).data("isBuy",buyCourse);
     }
 
-    // 根据课程id查询课程信息
 
+
+
+
+    // 根据课程id查询课程信息
     @GetMapping("getCourseInfoOrder/{id}")
     public CourseWebVoOrder getCourseInfoOrder(@PathVariable String id){
-
 
         CourseWebVo courseInfo = courseService.getBaseCourseInfo(id);
 
