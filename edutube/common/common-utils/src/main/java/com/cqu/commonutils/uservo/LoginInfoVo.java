@@ -1,15 +1,16 @@
-package com.cqu.ucenter.entity.Vo;
+package com.cqu.commonutils.uservo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author CGT
- * @create 2021-07-14 16:05
+ * @author fubibo
+ * @create 2021-07-15 下午3:21
  */
 
 @Data
 public class LoginInfoVo {
+
 
     @ApiModelProperty(value = "用户id")
     private String id;
@@ -21,3 +22,4 @@ public class LoginInfoVo {
     private String avatar;
 
 }
+

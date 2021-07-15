@@ -5,7 +5,6 @@ import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.MD5;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.ucenter.entity.Member;
-import com.cqu.ucenter.entity.Vo.LoginInfoVo;
 import com.cqu.ucenter.entity.Vo.LoginVo;
 import com.cqu.ucenter.entity.Vo.RegisterVo;
 import com.cqu.ucenter.mapper.MemberMapper;
