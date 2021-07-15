@@ -20,6 +20,7 @@
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
         </dependency>
+
     </dependencies>
 
 

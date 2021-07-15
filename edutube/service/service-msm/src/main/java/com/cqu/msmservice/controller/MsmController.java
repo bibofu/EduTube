@@ -5,7 +5,6 @@ import com.cqu.msmservice.service.MsmService;
 import com.cqu.msmservice.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +14,13 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author fubibo
- * @create 2021-07-14 下午3:23
+ * @create 2021-07-14 下午5:19
  */
 
 @RestController
-@CrossOrigin
 @RequestMapping("/edumsm/msm")
-public class MsmApiController {
+@CrossOrigin
+public class MsmController {
 
     @Autowired
     private MsmService msmService;

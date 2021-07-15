@@ -7,14 +7,13 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author fubibo
- * @create 2021-07-14 下午3:37
+ * @create 2021-07-14 下午5:17
  */
 
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan({"com.cqu"})
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)//取消数据源自动配置
-public class ServiceMsmApplication {
-
+public class MsmApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ServiceMsmApplication.class,args);
+        SpringApplication.run(MsmApplication.class,args);
     }
 }

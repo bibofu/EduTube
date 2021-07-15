@@ -34,7 +34,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         String mobile = loginVo.getMobile();
         String password = loginVo.getPassword();
         //校验参数
-        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) || StringUtils.isEmpty(mobile)) {
+        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) ) {
             throw new MyException(20001,"error");
         }
         //获取会员
@@ -63,8 +63,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         String mobile = registerVo.getMobile();
         String password = registerVo.getPassword();
         String code = registerVo.getCode();
-//校验参数
-        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) || StringUtils.isEmpty(code)) {
+        //校验参数
+        if( StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) || StringUtils.isEmpty(code)) {
             throw new MyException(20001,"error");
         }
         //校验校验验证码
