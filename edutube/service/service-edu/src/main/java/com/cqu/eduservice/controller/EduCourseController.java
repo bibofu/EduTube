@@ -41,9 +41,9 @@ public class EduCourseController {
     @PostMapping("addCourseInfo")
     public R addCourse(@RequestBody CourseInfoVo courseInfoVo){
 
-        courseService.saveCourseInfo(courseInfoVo);
+        String id = courseService.saveCourseInfo(courseInfoVo);
 
-        String id = courseInfoVo.getId();
+
 
         return R.ok().data("id",id);
 

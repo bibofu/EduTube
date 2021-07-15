@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface EduCourseService extends IService<EduCourse> {
 
-    void saveCourseInfo(CourseInfoVo courseInfoVo);
+    String saveCourseInfo(CourseInfoVo courseInfoVo);
 
     CourseInfoVo getCourseInfo(String courseId);
 
