@@ -11,6 +11,7 @@ import com.cqu.ucenter.entity.Vo.RegisterVo;
 import com.cqu.ucenter.mapper.MemberMapper;
 import com.cqu.ucenter.service.MemberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements MemberService {
+
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
@@ -38,8 +40,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
             throw new MyException(20001,"error");
         }
         //获取会员
-        Member member = baseMapper.selectOne(new
-                QueryWrapper<Member>().eq("mobile", mobile));
+        Member member = baseMapper.selectOne(new QueryWrapper<Member>().eq("mobile", mobile));
         if(null == member) {
             throw new MyException(20001,"error");
         }
@@ -90,6 +91,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     @Override
     public LoginInfoVo getLoginInfo(String memberId) {
-        return null;
+        Member member = baseMapper.selectById(memberId);
+        LoginInfoVo loginInfoVo = new LoginInfoVo();
+        BeanUtils.copyProperties(member, loginInfoVo);
+        return loginInfoVo;
     }
 }

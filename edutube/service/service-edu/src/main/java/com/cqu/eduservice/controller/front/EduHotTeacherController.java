@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqu.commonutils.R;
 import com.cqu.eduservice.entity.EduTeacher;
 import com.cqu.eduservice.service.EduTeacherService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +18,8 @@ import java.util.List;
  * @author CGT
  * @create 2021-07-14 10:59
  */
+
+@Api(description = "热门讲师")
 @RestController
 @RequestMapping("/eduservice/hotteacher")
 @CrossOrigin
