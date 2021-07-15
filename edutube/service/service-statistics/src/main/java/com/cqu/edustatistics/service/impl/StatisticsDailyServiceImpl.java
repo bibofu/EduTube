@@ -25,6 +25,7 @@ import java.util.Map;
  */
 @Service
 public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMapper, StatisticsDaily> implements StatisticsDailyService {
+
     @Autowired
     private UcenterClient ucenterClient;
 
