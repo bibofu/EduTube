@@ -2,7 +2,6 @@ package com.cqu.ucenter.service;
 
 import com.cqu.ucenter.entity.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.cqu.ucenter.entity.Vo.LoginInfoVo;
 import com.cqu.ucenter.entity.Vo.LoginVo;
 import com.cqu.ucenter.entity.Vo.RegisterVo;
 

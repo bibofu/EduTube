@@ -5,13 +5,11 @@ import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.R;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.ucenter.entity.Member;
-import com.cqu.ucenter.entity.Vo.LoginInfoVo;
 import com.cqu.ucenter.entity.Vo.LoginVo;
 import com.cqu.ucenter.entity.Vo.RegisterVo;
 import com.cqu.ucenter.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
