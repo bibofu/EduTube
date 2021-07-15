@@ -3,6 +3,7 @@ package com.cqu.ucenter.controller;
 
 import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.R;
+import com.cqu.commonutils.ordervo.UcenterMemberOrder;
 import com.cqu.commonutils.uservo.LoginInfoVo;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.ucenter.entity.Member;
@@ -11,6 +12,7 @@ import com.cqu.ucenter.entity.Vo.RegisterVo;
 import com.cqu.ucenter.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,7 +83,7 @@ public class MemberController {
     // 根据用户id获取信息
     @ApiOperation("根据id获取用户登录信息")
     @GetMapping("getUserInfo/{id}")
-    public R getUserInfoOrder(@PathVariable String id){
+    public R getUserInfo(@PathVariable String id){
 
         LoginInfoVo info = memberService.getLoginInfo(id);
 
@@ -93,5 +95,16 @@ public class MemberController {
         Integer count = memberService.countRegisterByDay(day);
         return R.ok().data("countRegister", count);
     }
+    // 根据用户id获取订单用户信息
+    @GetMapping("getUserInfoOrder/{id}")
+    public UcenterMemberOrder getUserInfoOrder(@PathVariable String id){
+        UcenterMemberOrder memberOrder=new UcenterMemberOrder();
+
+        Member member=memberService.getById(id);
+        BeanUtils.copyProperties(member,memberOrder);
+
+        return memberOrder;
+    }
+
 }
 

@@ -3,6 +3,8 @@ package com.cqu.msmservice.controller;
 import com.cqu.commonutils.R;
 import com.cqu.msmservice.service.MsmService;
 import com.cqu.msmservice.utils.RandomUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -17,6 +19,8 @@ import java.util.concurrent.TimeUnit;
  * @create 2021-07-14 下午5:19
  */
 
+
+@Api(description = "根据手机号发送验证码")
 @RestController
 @RequestMapping("/edumsm/msm")
 @CrossOrigin
@@ -29,6 +33,7 @@ public class MsmController {
     private RedisTemplate<String, String> redisTemplate;
 
     //发送短信的方法
+    @ApiOperation(value = "发送短信")
     @GetMapping("send/{phone}")
     public R sendMsm(@PathVariable String phone) {
         //1 从redis获取验证码，如果获取到直接返回
