@@ -26,6 +26,7 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements MemberService {
+
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
@@ -38,8 +39,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
             throw new MyException(20001,"error");
         }
         //获取会员
-        Member member = baseMapper.selectOne(new
-                QueryWrapper<Member>().eq("mobile", mobile));
+        Member member = baseMapper.selectOne(new QueryWrapper<Member>().eq("mobile", mobile));
         if(null == member) {
             throw new MyException(20001,"error");
         }

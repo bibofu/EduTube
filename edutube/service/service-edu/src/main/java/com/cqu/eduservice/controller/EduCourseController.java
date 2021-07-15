@@ -43,7 +43,9 @@ public class EduCourseController {
 
         courseService.saveCourseInfo(courseInfoVo);
 
-        return R.ok();
+        String id = courseInfoVo.getId();
+
+        return R.ok().data("id",id);
 
 
     }

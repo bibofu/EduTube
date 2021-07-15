@@ -8,6 +8,7 @@ import com.cqu.ucenter.entity.Vo.LoginInfoVo;
 import com.cqu.ucenter.entity.Vo.LoginVo;
 import com.cqu.ucenter.entity.Vo.RegisterVo;
 import com.cqu.ucenter.service.MemberService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author CGT
  * @since 2021-07-14
  */
+
+@Api(description = "会员服务")
 @RestController
 @RequestMapping("/ucenter/member")
 @CrossOrigin
