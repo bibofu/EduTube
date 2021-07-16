@@ -124,7 +124,7 @@ public class EduTeacherController {
             wrapper.ge("gmt_create",begin);
         }
         if (!StringUtils.isEmpty(end)){
-            wrapper.eq("gmt_modified",end);
+            wrapper.le("gmt_modified",end);
         }
 
         teacherService.page(teacherPage,wrapper);
