@@ -38,5 +38,13 @@ public class StatisticsDailyController {
         return R.ok().data(map);
     }
 
+    @ApiOperation(value = "登陆时修改表中登录人数")
+    @PostMapping("updateLoginNum/{day}")
+    public R updateLoginNum(@PathVariable String day)
+    {
+        statisticsDailyService.updateLoginNum(day);
+        return R.ok();
+    }
+
 }
 

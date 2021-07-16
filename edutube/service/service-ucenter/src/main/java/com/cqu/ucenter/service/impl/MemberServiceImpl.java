@@ -11,6 +11,7 @@ import com.cqu.ucenter.entity.Vo.RegisterVo;
 import com.cqu.ucenter.mapper.MemberMapper;
 import com.cqu.ucenter.service.MemberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cqu.ucenter.utils.StatisticsClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -31,8 +32,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+    @Autowired
+    private StatisticsClient statisticsClient;
     @Override
-    public String login(LoginVo loginVo) {
+    public String login(LoginVo loginVo,String date) {
         String mobile = loginVo.getMobile();
         String password = loginVo.getPassword();
         //校验参数
@@ -54,6 +57,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         }
         //使用JWT生成token字符串
         String token = JwtUtils.getJwtToken(member.getId(), member.getNickname());
+        statisticsClient.updateLoginNum(date);
         return token;
     }
 
@@ -108,5 +112,20 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     @Override
     public Integer countRegisterByDay(String day) {
         return baseMapper.selectRegisterCount(day);
+    }
+
+    @Override
+    public Integer countLoginByDay(String day) {
+        return baseMapper.selectLoginCount(day);
+    }
+
+    @Override
+    public Integer countVideoByDay(String day) {
+        return baseMapper.selectVideoCount(day);
+    }
+
+    @Override
+    public Integer countCourseByDay(String day) {
+        return baseMapper.selectCourseCount(day);
     }
 }

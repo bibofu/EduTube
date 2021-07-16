@@ -18,4 +18,6 @@ public interface StatisticsDailyService extends IService<StatisticsDaily> {
     void createStatisticsByDay(String day);
 
     Map<String, Object> getShowData(String type, String begin, String end);
+
+    void updateLoginNum(String day);
 }

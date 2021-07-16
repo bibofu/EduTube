@@ -17,4 +17,9 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper extends BaseMapper<Member> {
 
     Integer selectRegisterCount(String day);
+    Integer selectLoginCount(String day);
+
+    Integer selectVideoCount(String day);
+
+    Integer selectCourseCount(String day);
 }
