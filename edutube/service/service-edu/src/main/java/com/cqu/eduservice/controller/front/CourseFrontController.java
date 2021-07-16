@@ -11,6 +11,8 @@ import com.cqu.eduservice.entity.frontvo.CourseFrontVo;
 import com.cqu.eduservice.entity.frontvo.CourseWebVo;
 import com.cqu.eduservice.service.EduChapterService;
 import com.cqu.eduservice.service.EduCourseService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ import java.util.Map;
  * @create 2021-07-15 下午2:22
  */
 
+@Api(description = "课程前台")
 @RestController
 @CrossOrigin
 @RequestMapping("/eduservice/courseFront")
@@ -39,6 +42,7 @@ public class CourseFrontController {
     private OrdersClient ordersClient;
 
     //1 条件查询带分页查询课程
+    @ApiOperation(value = "条件查询带分页课程")
     @PostMapping("getFrontCourseList/{page}/{limit}")
     public R getFrontCourseList(@PathVariable long page, @PathVariable long limit,
                                 @RequestBody(required = false) CourseFrontVo courseFrontVo) {
@@ -49,6 +53,7 @@ public class CourseFrontController {
     }
 
     //2 课程详情的方法
+    @ApiOperation(value = "查看课程详情")
     @GetMapping("getFrontCourseInfo/{courseId}")
     public R getFrontCourseInfo(@PathVariable String courseId, HttpServletRequest request) {
         //根据课程id，编写sql语句查询课程信息
@@ -67,8 +72,9 @@ public class CourseFrontController {
 
 
     // 根据课程id查询课程信息
+    @ApiOperation(value = "根据课程id查看课程信息(订单)")
     @GetMapping("getCourseInfoOrder/{id}")
-    public CourseWebVoOrder getCourseInfoOrder(@PathVariable String id){
+    public R getCourseInfoOrder(@PathVariable String id){
 
         CourseWebVo courseInfo = courseService.getBaseCourseInfo(id);
 
@@ -76,7 +82,7 @@ public class CourseFrontController {
 
         BeanUtils.copyProperties(courseInfo,courseWebVoOrder);
 
-        return courseWebVoOrder;
+        return R.ok().data("courseOrder",courseWebVoOrder);
     }
 
 

@@ -7,6 +7,7 @@ import com.cqu.eduservice.entity.EduCourse;
 import com.cqu.eduservice.entity.EduTeacher;
 import com.cqu.eduservice.service.EduCourseService;
 import com.cqu.eduservice.service.EduTeacherService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ import java.util.Map;
  * @author CGT
  * @create 2021-07-15 14:52
  */
+
+@Api(description = "讲师前台")
 @RestController
 @CrossOrigin
 @RequestMapping("/eduservice/teacherfront")
