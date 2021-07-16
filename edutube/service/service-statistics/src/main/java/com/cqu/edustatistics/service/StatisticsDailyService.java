@@ -20,4 +20,10 @@ public interface StatisticsDailyService extends IService<StatisticsDaily> {
     Map<String, Object> getShowData(String type, String begin, String end);
 
     void updateLoginNum(String day);
+
+    void updateRegisterNum(String day);
+
+    void updateVideo(String day);
+
+    void updateCourse(String day);
 }

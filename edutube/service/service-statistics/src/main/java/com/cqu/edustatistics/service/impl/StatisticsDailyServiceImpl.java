@@ -6,6 +6,7 @@ import com.cqu.edustatistics.mapper.StatisticsDailyMapper;
 import com.cqu.edustatistics.service.StatisticsDailyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cqu.edustatistics.utils.UcenterClient;
+import io.swagger.models.auth.In;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,6 +103,39 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         Integer loginNum=daily.getLoginNum();
         loginNum++;
         daily.setLoginNum(loginNum);
+        baseMapper.updateById(daily);
+    }
+
+    @Override
+    public void updateRegisterNum(String day) {
+        QueryWrapper<StatisticsDaily>wrapper=new QueryWrapper<>();
+        wrapper.eq("date_calculated",day);
+        StatisticsDaily daily=baseMapper.selectOne(wrapper);
+        Integer registerNum=daily.getRegisterNum();
+        registerNum++;
+        daily.setRegisterNum(registerNum);
+        baseMapper.updateById(daily);
+    }
+
+    @Override
+    public void updateVideo(String day) {
+        QueryWrapper<StatisticsDaily>wrapper=new QueryWrapper<>();
+        wrapper.eq("date_calculated",day);
+        StatisticsDaily daily=baseMapper.selectOne(wrapper);
+        Integer videoNum=daily.getVideoViewNum();
+        videoNum++;
+        daily.setVideoViewNum(videoNum);
+        baseMapper.updateById(daily);
+    }
+
+    @Override
+    public void updateCourse(String day) {
+        QueryWrapper<StatisticsDaily>wrapper=new QueryWrapper<>();
+        wrapper.eq("date_calculated",day);
+        StatisticsDaily daily=baseMapper.selectOne(wrapper);
+        Integer courseNum=daily.getCourseNum();
+        courseNum++;
+        daily.setCourseNum(courseNum);
         baseMapper.updateById(daily);
     }
 }

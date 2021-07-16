@@ -12,6 +12,7 @@ import com.cqu.ucenter.mapper.MemberMapper;
 import com.cqu.ucenter.service.MemberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cqu.ucenter.utils.StatisticsClient;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -62,7 +63,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     }
 
     @Override
-    public void register(RegisterVo registerVo) {
+    public void register(RegisterVo registerVo,String date) {
         //获取注册信息，进行校验
         String nickname = registerVo.getNickname();
         String mobile = registerVo.getMobile();
@@ -90,6 +91,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         member.setPassword(MD5.encrypt(password));
         member.setIsDisabled(false);
         member.setAvatar("");
+        statisticsClient.updateRegisterNum(date);
         this.save(member);
     }
 
@@ -128,4 +130,5 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     public Integer countCourseByDay(String day) {
         return baseMapper.selectCourseCount(day);
     }
+
 }

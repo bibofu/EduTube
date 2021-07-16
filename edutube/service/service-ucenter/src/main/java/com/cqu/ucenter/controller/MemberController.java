@@ -56,7 +56,11 @@ public class MemberController {
     @PostMapping("register")
     public R register(@RequestBody RegisterVo registerVo)
     {
-        memberService.register(registerVo);
+        Date date=new Date();
+        String pattern="yyyy-MM-dd";
+        SimpleDateFormat sdf=new SimpleDateFormat(pattern);
+        String day=sdf.format(date);
+        memberService.register(registerVo,day);
         return R.ok();
     }
 
