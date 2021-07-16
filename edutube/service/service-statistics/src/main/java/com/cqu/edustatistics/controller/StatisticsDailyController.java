@@ -5,6 +5,7 @@ import com.cqu.commonutils.R;
 import com.cqu.edustatistics.service.StatisticsDailyService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Member;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @since 2021-07-15
  */
 @RestController
+@EnableFeignClients
 @RequestMapping("/edustatistics/statistics")
 public class StatisticsDailyController {
     @Autowired
@@ -45,6 +47,12 @@ public class StatisticsDailyController {
         statisticsDailyService.updateLoginNum(day);
         return R.ok();
     }
-
+    @ApiOperation(value = "注册时修改表中注册人数")
+    @PostMapping("updateRegisterNum/{day}")
+    public R updateRegisterNum(@PathVariable String day)
+    {
+        statisticsDailyService.updateRegisterNum(day);
+        return R.ok();
+    }
 }
 

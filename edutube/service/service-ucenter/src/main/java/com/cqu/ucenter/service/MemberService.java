@@ -18,7 +18,7 @@ public interface MemberService extends IService<Member> {
 
     String login(LoginVo loginVo,String date);
 
-    void register(RegisterVo registerVo);
+    void register(RegisterVo registerVo,String date);
 
     LoginInfoVo getLoginInfo(String memberId);
 

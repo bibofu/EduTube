@@ -2,14 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqu.ucenter.mapper.MemberMapper">
     <select id="selectRegisterCount" resultType="java.lang.Integer">
-    SELECT COUNT(1)
-    FROM ucenter_member
-    WHERE DATE(gmt_create) = #{value}
+    SELECT register_num
+    FROM statistics_daily
+    WHERE DATE(date_calculated) = #{value}
     </select>
     <select id="selectLoginCount" resultType="java.lang.Integer">
-        SELECT count(1)
-        from ucenter_member
-        where date(gmt_create) = #{value}
+        SELECT login_num
+        from statistics_daily
+        where date(date_calculated) = #{value}
     </select>
-
+    <select id="selectVideoCount" resultType="java.lang.Integer">
+        select video_view_num
+        from statistics_daily
+        where date(date_calculated)=#{value}
+    </select>
+    <select id="selectCourseCount" resultType="java.lang.Integer">
+        select course_num
+        from statistics_daily
+        where date(date_calculated)=#{value}
+    </select>
 </mapper>

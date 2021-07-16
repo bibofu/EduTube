@@ -2,6 +2,7 @@ package com.cqu.eduservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cqu.eduservice.client.StatisticsClient;
 import com.cqu.eduservice.entity.EduCourse;
 import com.cqu.eduservice.entity.EduCourseDescription;
 import com.cqu.eduservice.entity.frontvo.CourseFrontVo;
@@ -15,6 +16,7 @@ import com.cqu.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cqu.eduservice.service.EduVideoService;
 import com.cqu.servicebase.exceptionhandler.MyException;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +47,8 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduChapterService chapterService;
-
+    @Autowired
+    private StatisticsClient statisticsClient;
 
     /**
      * 向课程表和课程描述表添加数据
@@ -65,6 +68,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             throw new MyException(20001, "添加课程信息失败");
         }
 
+        statisticsClient.updateCourseNum();
         //获取添加之后课程id
         String cid = eduCourse.getId();
 
@@ -84,7 +88,6 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Override
     public CourseInfoVo getCourseInfo(String courseId) {
         EduCourse course = baseMapper.selectById(courseId);
-
         CourseInfoVo vo = new CourseInfoVo();
         BeanUtils.copyProperties(course, vo);
 
