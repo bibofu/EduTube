@@ -36,11 +36,10 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         dayQueryWrapper.eq("date_calculated", day);
         baseMapper.delete(dayQueryWrapper);
         //获取统计信息
-        Integer registerNum = (Integer)
-                ucenterClient.registerCount(day).getData().get("countRegister");
-        Integer loginNum = RandomUtils.nextInt(100, 200);//TODO
-        Integer videoViewNum = RandomUtils.nextInt(100, 200);//TODO
-        Integer courseNum = RandomUtils.nextInt(100, 200);//TODO
+        Integer registerNum = (Integer) ucenterClient.registerCount(day).getData().get("countRegister");
+        Integer loginNum = (Integer) ucenterClient.loginCount(day).getData().get("countLogin");//TODO
+        Integer videoViewNum = (Integer) ucenterClient.videoCount(day).getData().get("countVideo");//TODO
+        Integer courseNum = (Integer) ucenterClient.courseCount(day).getData().get("countCourse");//TODO
         //创建统计对象
         StatisticsDaily daily = new StatisticsDaily();
         daily.setRegisterNum(registerNum);
@@ -93,5 +92,16 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         map.put("date_calculatedList",date_calculatedList);
         map.put("numDataList",numDataList);
         return map;
+    }
+
+    @Override
+    public void updateLoginNum(String day) {
+        QueryWrapper<StatisticsDaily>wrapper=new QueryWrapper<>();
+        wrapper.eq("date_calculated",day);
+        StatisticsDaily daily=baseMapper.selectOne(wrapper);
+        Integer loginNum=daily.getLoginNum();
+        loginNum++;
+        daily.setLoginNum(loginNum);
+        baseMapper.updateById(daily);
     }
 }
