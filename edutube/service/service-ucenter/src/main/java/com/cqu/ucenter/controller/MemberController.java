@@ -10,13 +10,17 @@ import com.cqu.ucenter.entity.Member;
 import com.cqu.ucenter.entity.Vo.LoginVo;
 import com.cqu.ucenter.entity.Vo.RegisterVo;
 import com.cqu.ucenter.service.MemberService;
+import com.cqu.ucenter.utils.StatisticsClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * <p>
@@ -40,7 +44,11 @@ public class MemberController {
     @PostMapping("login")
     public R login(@RequestBody LoginVo loginVo)
     {
-        String token = memberService.login(loginVo);
+        Date date=new Date();
+        String pattern="yyyy-MM-dd";
+        SimpleDateFormat sdf=new SimpleDateFormat(pattern);
+        String day=sdf.format(date);
+        String token = memberService.login(loginVo,day);
         return R.ok().data("token",token);
     }
 
@@ -95,7 +103,23 @@ public class MemberController {
         Integer count = memberService.countRegisterByDay(day);
         return R.ok().data("countRegister", count);
     }
+    @GetMapping(value = "countlogin/{day}")
+    public R countLogin(@PathVariable String day){
+        Integer count=memberService.countLoginByDay(day);
+        return R.ok().data("countLogin",count);
+    }
+    @GetMapping(value = "countvideo/{day}")
+    public R countVideo(@PathVariable String day){
+        Integer count=memberService.countVideoByDay(day);
+        return R.ok().data("countVideo",count);
+    }
+    @GetMapping(value = "countcourse/{day}")
+    public R countCourse(@PathVariable String day){
+        Integer count=memberService.countCourseByDay(day);
+        return R.ok().data("countCourse",count);
+    }
     // 根据用户id获取订单用户信息
+    @ApiOperation(value = "根据用户id获取订单用户信息")
     @GetMapping("getUserInfoOrder/{id}")
     public UcenterMemberOrder getUserInfoOrder(@PathVariable String id){
         UcenterMemberOrder memberOrder=new UcenterMemberOrder();

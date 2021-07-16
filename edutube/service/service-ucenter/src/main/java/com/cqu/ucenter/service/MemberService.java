@@ -16,7 +16,7 @@ import com.cqu.ucenter.entity.Vo.RegisterVo;
  */
 public interface MemberService extends IService<Member> {
 
-    String login(LoginVo loginVo);
+    String login(LoginVo loginVo,String date);
 
     void register(RegisterVo registerVo);
 
@@ -25,4 +25,10 @@ public interface MemberService extends IService<Member> {
     Member getByOpenId(String openid);
 
     Integer countRegisterByDay(String day);
+
+    Integer countLoginByDay(String day);
+
+    Integer countVideoByDay(String day);
+
+    Integer countCourseByDay(String day);
 }

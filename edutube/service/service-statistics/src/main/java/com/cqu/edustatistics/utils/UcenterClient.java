@@ -13,6 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Component
 @FeignClient("service-ucenter")
 public interface UcenterClient {
-    @GetMapping(value = "/ucenterservice/member/countregister/{day}")
+    @GetMapping(value = "/ucenter/member/countregister/{day}")
     public R registerCount(@PathVariable("day") String day);
+
+    @GetMapping(value = "ucenter/member/countlogin/{day}")
+    public R loginCount(@PathVariable("day") String day);
+
+    @GetMapping(value = "ucenter/member/countvideo/{day}")
+    public R videoCount(@PathVariable("day")String day);
+
+    @GetMapping(value = "ucenter/member/countcourse/{day}")
+    public R courseCount(@PathVariable("day")String day);
 }
