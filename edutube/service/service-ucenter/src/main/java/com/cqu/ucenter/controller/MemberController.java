@@ -48,6 +48,8 @@ public class MemberController {
         String pattern="yyyy-MM-dd";
         SimpleDateFormat sdf=new SimpleDateFormat(pattern);
         String day=sdf.format(date);
+
+
         String token = memberService.login(loginVo,day);
         return R.ok().data("token",token);
     }

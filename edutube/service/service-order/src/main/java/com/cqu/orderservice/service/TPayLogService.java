@@ -12,7 +12,7 @@ import java.util.Map;
  * </p>
  *
  * @author fubibo
- * @since 2021-07-15
+ * @since 2021-07-16
  */
 public interface TPayLogService extends IService<TPayLog> {
 
