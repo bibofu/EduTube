@@ -1,9 +1,9 @@
-package com.cqu.cms.service.impl;
+package com.cqu.act.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cqu.cms.entity.CrmBanner;
-import com.cqu.cms.mapper.CrmBannerMapper;
-import com.cqu.cms.service.CrmBannerService;
+import com.cqu.act.entity.CrmBanner;
+import com.cqu.act.mapper.CrmBannerMapper;
+import com.cqu.act.service.CrmBannerService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

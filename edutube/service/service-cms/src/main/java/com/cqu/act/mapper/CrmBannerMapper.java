@@ -1,6 +1,6 @@
-package com.cqu.cms.mapper;
+package com.cqu.act.mapper;
 
-import com.cqu.cms.entity.CrmBanner;
+import com.cqu.act.entity.CrmBanner;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

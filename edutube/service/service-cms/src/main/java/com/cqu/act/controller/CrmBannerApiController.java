@@ -1,7 +1,7 @@
-package com.cqu.cms.controller;
+package com.cqu.act.controller;
 
-import com.cqu.cms.entity.CrmBanner;
-import com.cqu.cms.service.CrmBannerService;
+import com.cqu.act.entity.CrmBanner;
+import com.cqu.act.service.CrmBannerService;
 import com.cqu.commonutils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
