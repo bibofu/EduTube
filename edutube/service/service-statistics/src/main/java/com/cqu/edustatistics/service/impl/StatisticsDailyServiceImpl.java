@@ -100,6 +100,11 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         QueryWrapper<StatisticsDaily>wrapper=new QueryWrapper<>();
         wrapper.eq("date_calculated",day);
         StatisticsDaily daily=baseMapper.selectOne(wrapper);
+        if(daily==null)
+        {
+            daily=new StatisticsDaily();
+            daily.setDateCalculated(day);
+        }
         Integer loginNum=daily.getLoginNum();
         loginNum++;
         daily.setLoginNum(loginNum);
@@ -111,6 +116,11 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         QueryWrapper<StatisticsDaily>wrapper=new QueryWrapper<>();
         wrapper.eq("date_calculated",day);
         StatisticsDaily daily=baseMapper.selectOne(wrapper);
+        if(daily==null)
+        {
+            daily=new StatisticsDaily();
+            daily.setDateCalculated(day);
+        }
         Integer registerNum=daily.getRegisterNum();
         registerNum++;
         daily.setRegisterNum(registerNum);
