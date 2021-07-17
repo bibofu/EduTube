@@ -1,4 +1,4 @@
-package com.cqu.cms;
+package com.cqu.act;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

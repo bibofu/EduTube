@@ -1,4 +1,4 @@
-package com.cqu.cms.entity;
+package com.cqu.act.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;

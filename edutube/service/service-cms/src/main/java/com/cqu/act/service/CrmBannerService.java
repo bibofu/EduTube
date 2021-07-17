@@ -1,6 +1,6 @@
-package com.cqu.cms.service;
+package com.cqu.act.service;
 
-import com.cqu.cms.entity.CrmBanner;
+import com.cqu.act.entity.CrmBanner;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
