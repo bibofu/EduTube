@@ -26,4 +26,6 @@ public interface StatisticsDailyService extends IService<StatisticsDaily> {
     void updateVideo(String day);
 
     void updateCourse(String day);
+
+    Map<String, Object> getChartData(String begin, String end, String type);
 }
