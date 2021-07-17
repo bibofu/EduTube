@@ -41,20 +41,20 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         String password = loginVo.getPassword();
         //校验参数
         if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) ) {
-            throw new MyException(20001,"error");
+            throw new MyException(20001,"电话号码或者密码为空");
         }
         //获取会员
         Member member = baseMapper.selectOne(new QueryWrapper<Member>().eq("mobile", mobile));
         if(null == member) {
-            throw new MyException(20001,"error");
+            throw new MyException(20001,"用户不存在");
         }
         //校验密码
         if(!MD5.encrypt(password).equals(member.getPassword())) {
-            throw new MyException(20001,"error");
+            throw new MyException(20001,"密码错误");
         }
         //校验是否被禁用
         if(member.getIsDisabled()) {
-            throw new MyException(20001,"error");
+            throw new MyException(20001,"账户被禁用");
         }
         //使用JWT生成token字符串
         String token = JwtUtils.getJwtToken(member.getId(), member.getNickname());
@@ -71,18 +71,18 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         String code = registerVo.getCode();
         //校验参数
         if( StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) || StringUtils.isEmpty(code)) {
-            throw new MyException(20001,"error");
+            throw new MyException(20001,"电话号码、密码或者验证码为空");
         }
         //校验校验验证码
         //从redis获取发送的验证码
         String mobleCode = redisTemplate.opsForValue().get(mobile);
         if(!code.equals(mobleCode)) {
-            throw new MyException(20001,"error");
+            throw new MyException(20001,"验证码错误");
         }
         //查询数据库中是否存在相同的手机号码
         Integer count = baseMapper.selectCount(new QueryWrapper<Member>().eq("mobile", mobile));
         if(count.intValue() > 0) {
-            throw new MyException(20001,"error");
+            throw new MyException(20001,"手机号已被注册");
         }
         //添加注册信息到数据库
         Member member = new Member();
