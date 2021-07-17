@@ -90,7 +90,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         member.setMobile(registerVo.getMobile());
         member.setPassword(MD5.encrypt(password));
         member.setIsDisabled(false);
-        member.setAvatar("");
+        member.setAvatar("https://z3.ax1x.com/2021/07/17/WQ6ETK.jpg");
         statisticsClient.updateRegisterNum(date);
         this.save(member);
     }

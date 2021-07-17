@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author fubibo
- * @since 2021-07-15
+ * @since 2021-07-16
  */
 public interface TPayLogMapper extends BaseMapper<TPayLog> {
 

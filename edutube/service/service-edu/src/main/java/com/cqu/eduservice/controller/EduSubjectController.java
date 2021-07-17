@@ -5,6 +5,7 @@ import com.cqu.commonutils.R;
 import com.cqu.eduservice.entity.EduSubject;
 import com.cqu.eduservice.service.EduSubjectService;
 import com.cqu.eduservice.subject.OneSubject;
+import com.cqu.servicebase.exceptionhandler.MyException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,20 @@ public class EduSubjectController {
         subjectService.save(eduSubject);
         return R.ok();
     }
+
+    @DeleteMapping("{id}")
+    public R delete(@PathVariable String id){
+        EduSubject subject = subjectService.getById(id);
+        if (subject.getParentId().equals("0")){
+            return R.error().data("info","有下级分类，无法删除");
+        }else{
+            subjectService.removeById(id);
+            return R.ok();
+        }
+
+    }
+
+
 
 }
 

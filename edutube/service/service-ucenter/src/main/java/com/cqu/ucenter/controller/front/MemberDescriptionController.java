@@ -6,12 +6,10 @@ import com.cqu.commonutils.R;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.ucenter.entity.Member;
 import com.cqu.ucenter.service.MemberService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +18,35 @@ import javax.servlet.http.HttpServletRequest;
  * @author CGT
  * @create 2021-07-17 9:08
  */
+
+@Api(value = "用户详情页")
 @RestController
 @RequestMapping("/ucenter/description")
 public class MemberDescriptionController {
     @Autowired
     private MemberService memberService;
+
+
+    @ApiOperation(value = "获取用户信息")
+    @GetMapping("updateInfo")
+    public R getInfo(HttpServletRequest request){
+        try {
+
+            String id = JwtUtils.getMemberIdByJwtToken(request);
+            Member member = memberService.getById(id);
+
+            String nickname = member.getNickname();
+            String password = member.getPassword();
+            String avatar = member.getAvatar();
+
+            return R.ok().data("nickname",nickname).data("password",password).data("avatar",avatar);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new MyException(20001,"执行全局异常处理");
+        }
+    }
 
     @ApiOperation(value = "修改头像")
     @PostMapping("updateAvatar/{url}")
@@ -68,7 +90,7 @@ public class MemberDescriptionController {
             return R.ok();
         }catch (Exception e){
             e.printStackTrace();
-            throw new MyException(20001,"修改密码");
+            throw new MyException(20001,"修改密码失败");
         }
     }
 }

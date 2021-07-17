@@ -9,6 +9,7 @@ import com.cqu.commonutils.uservo.LoginInfoVo;
 import com.cqu.eduservice.client.UcenterClient;
 import com.cqu.eduservice.entity.EduComment;
 import com.cqu.eduservice.service.EduCommentService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ import java.util.Map;
  * @author fubibo
  * @since 2021-07-15
  */
+
+@Api(description = "课程评论")
 @RestController
 @CrossOrigin
 @RequestMapping("/eduservice/comment")
@@ -43,12 +46,7 @@ public class EduCommentController {
     //根据课程id查询评论列表
     @ApiOperation(value = "评论分页列表")
     @GetMapping("{page}/{limit}")
-    public R index(
-            @ApiParam(name = "page", value = "当前页码", required = true)
-            @PathVariable Long page,
-
-            @ApiParam(name = "limit", value = "每页记录数", required = true)
-            @PathVariable Long limit,
+    public R index(@PathVariable Long page, @PathVariable Long limit,
             @ApiParam(name = "courseQuery", value = "查询对象", required = false)
                     String courseId) {
         Page<EduComment> pageParam = new Page<>(page, limit);
@@ -66,6 +64,8 @@ public class EduCommentController {
         map.put("hasPrevious", pageParam.hasPrevious());
         return R.ok().data(map);
     }
+
+
     @ApiOperation(value = "添加评论")
     @PostMapping("auth/save")
     public R save(@RequestBody EduComment comment, HttpServletRequest request) {
