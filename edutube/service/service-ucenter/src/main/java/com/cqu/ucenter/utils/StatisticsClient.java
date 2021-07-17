@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Component
 @FeignClient("service-statistics")
 public interface StatisticsClient {
-    @GetMapping(value = "/eduservice/statistics/updateLoginNum/{day}")
+    @GetMapping(value = "/edustatistics/statistics/updateLoginNum/{day}")
     public R updateLoginNum(@PathVariable("day") String day);
 
-    @GetMapping(value = "/eduservice/statistics/updateRegisterNum/{day}")
+    @GetMapping(value = "/edustatistics/statistics/updateRegisterNum/{day}")
     public R updateRegisterNum(@PathVariable("day")String day);
 }

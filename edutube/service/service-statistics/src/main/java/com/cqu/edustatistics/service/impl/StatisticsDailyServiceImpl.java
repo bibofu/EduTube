@@ -38,9 +38,9 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         baseMapper.delete(dayQueryWrapper);
         //获取统计信息
         Integer registerNum = (Integer) ucenterClient.registerCount(day).getData().get("countRegister");
-        Integer loginNum = (Integer) ucenterClient.loginCount(day).getData().get("countLogin");//TODO
-        Integer videoViewNum = (Integer) ucenterClient.videoCount(day).getData().get("countVideo");//TODO
-        Integer courseNum = (Integer) ucenterClient.courseCount(day).getData().get("countCourse");//TODO
+        Integer loginNum = (Integer) ucenterClient.loginCount(day).getData().get("countLogin");
+        Integer videoViewNum = (Integer) ucenterClient.videoCount(day).getData().get("countVideo");
+        Integer courseNum = (Integer) ucenterClient.courseCount(day).getData().get("countCourse");
         //创建统计对象
         StatisticsDaily daily = new StatisticsDaily();
         daily.setRegisterNum(registerNum);
