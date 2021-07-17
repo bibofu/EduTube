@@ -43,7 +43,8 @@ public class MsmController {
         }
         //2 如果redis获取 不到，进行阿里云发送
         //生成随机值，传递阿里云进行发送
-        code = RandomUtil.getFourBitRandom();
+//        code = RandomUtil.getFourBitRandom();
+        code="1234";
         Map<String,Object> param = new HashMap<>();
         param.put("code",code);
         //调用service发送短信的方法

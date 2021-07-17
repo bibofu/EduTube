@@ -60,6 +60,8 @@ public class EduSubjectController {
         return R.ok();
     }
 
+
+    @ApiOperation(value = "删除课程分类")
     @DeleteMapping("{id}")
     public R delete(@PathVariable String id){
         EduSubject subject = subjectService.getById(id);
