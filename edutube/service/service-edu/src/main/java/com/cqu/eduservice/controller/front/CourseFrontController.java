@@ -1,5 +1,6 @@
 package com.cqu.eduservice.controller.front;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.R;
@@ -9,6 +10,7 @@ import com.cqu.eduservice.entity.EduCourse;
 import com.cqu.eduservice.entity.chapter.ChapterVo;
 import com.cqu.eduservice.entity.frontvo.CourseFrontVo;
 import com.cqu.eduservice.entity.frontvo.CourseWebVo;
+import com.cqu.eduservice.entity.vo.CourseQuery;
 import com.cqu.eduservice.service.EduChapterService;
 import com.cqu.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;

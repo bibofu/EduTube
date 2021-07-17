@@ -14,4 +14,7 @@ import lombok.Data;
 public class CourseQuery {
     @ApiModelProperty(value = "课程名称,模糊查询")
     private String name;
+
+    @ApiModelProperty(value = "课程价格")
+    private float price;
 }
