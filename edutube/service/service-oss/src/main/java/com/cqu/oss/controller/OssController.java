@@ -5,6 +5,7 @@ import com.cqu.oss.service.OssService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Api(description = "aliyun上传头像")
 @RestController
 @CrossOrigin
+@EnableFeignClients
 @RequestMapping("/eduoss/fileoss")
 public class OssController {
 

@@ -21,6 +21,7 @@ import java.util.Map;
  */
 @RestController
 @EnableFeignClients
+@CrossOrigin
 @RequestMapping("/edustatistics/statistics")
 public class StatisticsDailyController {
     @Autowired
