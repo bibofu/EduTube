@@ -9,6 +9,7 @@ import com.cqu.ucenter.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @create 2021-07-17 9:08
  */
 
-@Api(value = "用户详情页")
+@Api(description = "个人中心")
 @RestController
 @RequestMapping("/ucenter/description")
 public class MemberDescriptionController {
@@ -33,6 +34,9 @@ public class MemberDescriptionController {
         try {
 
             String id = JwtUtils.getMemberIdByJwtToken(request);
+            if(StringUtils.isEmpty(id)) {
+                return R.error().code(28004).message("请登录");
+            }
             Member member = memberService.getById(id);
 
             String nickname = member.getNickname();
@@ -54,6 +58,10 @@ public class MemberDescriptionController {
     {
         try {
             String memberId = JwtUtils.getMemberIdByJwtToken(request);
+            if(StringUtils.isEmpty(memberId)) {
+                return R.error().code(28004).message("请登录");
+            }
+
             Member member=memberService.getById(memberId);
             member.setAvatar(url);
             memberService.updateById(member);
@@ -69,6 +77,10 @@ public class MemberDescriptionController {
     public R updateNickname(HttpServletRequest request,@PathVariable String nickname){
         try {
             String memberId = JwtUtils.getMemberIdByJwtToken(request);
+            if(StringUtils.isEmpty(memberId)) {
+                return R.error().code(28004).message("请登录");
+            }
+
             Member member=memberService.getById(memberId);
             member.setNickname(nickname);
             String token=JwtUtils.getJwtToken(memberId,nickname);
@@ -84,6 +96,10 @@ public class MemberDescriptionController {
     public R updatePassword(HttpServletRequest request,@PathVariable String password){
         try {
             String memberId = JwtUtils.getMemberIdByJwtToken(request);
+            if(StringUtils.isEmpty(memberId)) {
+                return R.error().code(28004).message("请登录");
+            }
+
             Member member=memberService.getById(memberId);
             member.setPassword(MD5.encrypt(password));
             memberService.updateById(member);

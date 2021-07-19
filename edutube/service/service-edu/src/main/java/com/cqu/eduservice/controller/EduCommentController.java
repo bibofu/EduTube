@@ -45,10 +45,8 @@ public class EduCommentController {
 
     //根据课程id查询评论列表
     @ApiOperation(value = "评论分页列表")
-    @GetMapping("{page}/{limit}")
-    public R index(@PathVariable Long page, @PathVariable Long limit,
-            @ApiParam(name = "courseQuery", value = "查询对象", required = false)
-                    String courseId) {
+    @GetMapping("{courseId}/{page}/{limit}")
+    public R index(@PathVariable String courseId,@PathVariable Long page, @PathVariable Long limit) {
         Page<EduComment> pageParam = new Page<>(page, limit);
         QueryWrapper<EduComment> wrapper = new QueryWrapper<>();
         wrapper.eq("course_id",courseId);
