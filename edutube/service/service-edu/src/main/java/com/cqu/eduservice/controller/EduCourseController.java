@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqu.commonutils.R;
 import com.cqu.eduservice.entity.EduCourse;
+import com.cqu.eduservice.entity.EduHistory;
 import com.cqu.eduservice.entity.EduTeacher;
 import com.cqu.eduservice.entity.vo.CourseInfoVo;
 import com.cqu.eduservice.entity.vo.CoursePublishVo;
 import com.cqu.eduservice.entity.vo.CourseQuery;
 import com.cqu.eduservice.service.EduCourseService;
+import com.cqu.eduservice.service.EduHistoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
@@ -38,12 +40,21 @@ public class EduCourseController {
     @Autowired
     private EduCourseService courseService;
 
+    @Autowired
+    private EduHistoryService historyService;
+
     //1. 添加课程基本信息方法
     @ApiOperation(value = "添加课程基本信息")
     @PostMapping("addCourseInfo")
     public R addCourse(@RequestBody CourseInfoVo courseInfoVo){
 
         String id = courseService.saveCourseInfo(courseInfoVo);
+        String title = courseInfoVo.getTitle();
+
+        EduHistory history=new EduHistory();
+        history.setDescription("添加课程: "+title);
+        historyService.save(history);
+
 
 
 
@@ -59,6 +70,13 @@ public class EduCourseController {
 
         CourseInfoVo list=courseService.getCourseInfo(courseId);
 
+        EduCourse course = courseService.getById(courseId);
+        String title = course.getTitle();
+        EduHistory history=new EduHistory();
+        history.setDescription("查询课程: "+title+" id为: "+courseId);
+        historyService.save(history);
+
+
         return R.ok().data("courseInfo",list);
     }
 
@@ -67,6 +85,12 @@ public class EduCourseController {
     @PostMapping("updateCourseInfo")
     public R updateCourseInfo(@RequestBody CourseInfoVo courseInfoVo) {
         courseService.updateCourseInfo(courseInfoVo);
+
+        String title = courseInfoVo.getTitle();
+        EduHistory history=new EduHistory();
+        history.setDescription("修改课程: "+title);
+        historyService.save(history);
+
         return R.ok();
     }
 
@@ -85,6 +109,13 @@ public class EduCourseController {
         EduCourse eduCourse = new EduCourse();
         eduCourse.setId(id);
         eduCourse.setStatus("Normal");//设置课程发布状态
+
+        String title = eduCourse.getTitle();
+        EduHistory history=new EduHistory();
+        history.setDescription("发布课程: "+title);
+        historyService.save(history);
+
+
         courseService.updateById(eduCourse);
         return R.ok();
     }
@@ -104,6 +135,12 @@ public class EduCourseController {
     @DeleteMapping("{courseId}")
     public R deleteCourse(@PathVariable String courseId) {
         courseService.removeCourse(courseId);
+
+        EduCourse course = courseService.getById(courseId);
+        String title = course.getTitle();
+        EduHistory history=new EduHistory();
+        history.setDescription("删除课程: "+title);
+        historyService.save(history);
 
         return R.ok();
     }
