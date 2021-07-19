@@ -59,4 +59,9 @@ public class RandomUtil {
         System.out.print("\n");
         return r;
     }
+
+    public static void main(String[] args) {
+        String bitRandom = getFourBitRandom();
+        System.out.println(bitRandom);
+    }
 }
