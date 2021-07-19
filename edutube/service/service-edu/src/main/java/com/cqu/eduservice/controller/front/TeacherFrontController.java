@@ -49,5 +49,4 @@ public class TeacherFrontController {
         List<EduCourse> list = courseService.list(wrapper);
         return R.ok().data("teacher",eduTeacher).data("courseList",list);
     }
-
 }

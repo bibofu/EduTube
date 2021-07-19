@@ -63,8 +63,8 @@ public class CourseFrontController {
 
         //根据课程id查询章节和小节
         List<ChapterVo> chapterVideoList = chapterService.getChapterVideoById(courseId);
-
-        boolean buyCourse = ordersClient.isBuyCourse(courseId, JwtUtils.getMemberIdByJwtToken(request));
+        String memberId=JwtUtils.getMemberIdByJwtToken(request);
+        boolean buyCourse = ordersClient.isBuyCourse(courseId, memberId);
 
         return R.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVideoList).data("isBuy",buyCourse);
     }
