@@ -104,11 +104,17 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         {
             daily=new StatisticsDaily();
             daily.setDateCalculated(day);
+            daily.setLoginNum(0);
+            Integer loginNum=daily.getLoginNum();
+            loginNum++;
+            daily.setLoginNum(loginNum);
+            baseMapper.insert(daily);
+        }else{
+            Integer loginNum=daily.getLoginNum();
+            loginNum++;
+            daily.setLoginNum(loginNum);
+            baseMapper.updateById(daily);
         }
-        Integer loginNum=daily.getLoginNum();
-        loginNum++;
-        daily.setLoginNum(loginNum);
-        baseMapper.updateById(daily);
     }
 
     @Override
@@ -120,11 +126,19 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         {
             daily=new StatisticsDaily();
             daily.setDateCalculated(day);
+            daily.setRegisterNum(0);
+            int registerNum=daily.getRegisterNum();
+            registerNum++;
+            daily.setRegisterNum(registerNum);
+            baseMapper.insert(daily);
         }
-        Integer registerNum=daily.getRegisterNum();
-        registerNum++;
-        daily.setRegisterNum(registerNum);
-        baseMapper.updateById(daily);
+        else{
+            int registerNum=daily.getRegisterNum();
+            registerNum++;
+            daily.setRegisterNum(registerNum);
+            baseMapper.updateById(daily);
+        }
+
     }
 
     @Override
