@@ -2,15 +2,21 @@ package com.cqu.eduservice.service.impl;
 
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cqu.eduservice.entity.EduCourse;
 import com.cqu.eduservice.entity.EduSubject;
 import com.cqu.eduservice.entity.excel.SubjectData;
 import com.cqu.eduservice.listener.SubjectListener;
 import com.cqu.eduservice.mapper.EduSubjectMapper;
+import com.cqu.eduservice.service.EduChapterService;
+import com.cqu.eduservice.service.EduCourseService;
 import com.cqu.eduservice.service.EduSubjectService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cqu.eduservice.service.EduVideoService;
 import com.cqu.eduservice.subject.OneSubject;
 import com.cqu.eduservice.subject.TwoSubject;
+import com.cqu.servicebase.exceptionhandler.MyException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +34,12 @@ import java.util.List;
  */
 @Service
 public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubject> implements EduSubjectService {
-
+    @Autowired
+    EduCourseService courseService;
+    @Autowired
+    EduChapterService chapterService;
+    @Autowired
+    EduVideoService videoService;
     @Override
     public void saveSubject(MultipartFile file,EduSubjectService subjectService) {
 
@@ -89,5 +100,16 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
             oneSubject.setChildren(twoFinalSubjectList);
         }
         return finalSubjectList;
+    }
+
+    @Override
+    public void removeSubject(String id) {
+
+        courseService.removeBySubjectId(id);
+
+        int result = baseMapper.deleteById(id);
+        if (result == 0) {
+            throw new MyException(20001, "删除失败");
+        }
     }
 }

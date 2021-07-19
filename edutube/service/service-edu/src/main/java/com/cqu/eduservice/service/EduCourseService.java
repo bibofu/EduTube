@@ -34,4 +34,6 @@ public interface EduCourseService extends IService<EduCourse> {
     Map<String, Object> getCourseFrontList(Page<EduCourse> pageCourse, CourseFrontVo courseFrontVo);
 
     CourseWebVo getBaseCourseInfo(String courseId);
+
+    void removeBySubjectId(String id);
 }
