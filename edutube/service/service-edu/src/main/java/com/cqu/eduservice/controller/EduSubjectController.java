@@ -62,16 +62,10 @@ public class EduSubjectController {
 
 
     @ApiOperation(value = "删除课程分类")
-    @DeleteMapping("{id}")
-    public R delete(@PathVariable String id){
-        EduSubject subject = subjectService.getById(id);
-        if (subject.getParentId().equals("0")){
-            return R.error().data("info","有下级分类，无法删除");
-        }else{
-            subjectService.removeById(id);
-            return R.ok();
-        }
-
+    @DeleteMapping("deleteSubject/{id}")
+    public R deleteSubject(@PathVariable String id){
+        subjectService.removeSubject(id);
+        return R.ok();
     }
 
 

@@ -200,5 +200,15 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         return baseMapper.getBaseCourseInfo(courseId);
     }
 
+    @Override
+    public void removeBySubjectId(String id) {
+        QueryWrapper<EduCourse>wrapper=new QueryWrapper<>();
+        wrapper.eq("subject_id",id);
+        EduCourse course=baseMapper.selectOne(wrapper);
+        if(course!=null){
+            removeCourse(course.getId());
+        }
+    }
+
 
 }
