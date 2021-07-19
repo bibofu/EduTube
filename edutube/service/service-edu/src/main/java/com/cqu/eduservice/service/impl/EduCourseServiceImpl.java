@@ -166,7 +166,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             wrapper.orderByDesc("price");
         }
         if(!StringUtils.isEmpty(courseFrontVo.getPrice())){
-            wrapper.ge("price",0.0);
+            wrapper.gt("price",0.0);
         } else{
             wrapper.eq("price",0);
         }
