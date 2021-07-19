@@ -36,4 +36,6 @@ public interface EduCourseService extends IService<EduCourse> {
     CourseWebVo getBaseCourseInfo(String courseId);
 
     void removeBySubjectId(String id);
+
+    List<EduCourse> getHotCourse();
 }
