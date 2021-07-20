@@ -44,4 +44,6 @@ public class DailyFrontController {
         statisticsDailyService.updateCourse(day);
         return R.ok();
     }
+
+
 }
