@@ -2,7 +2,6 @@ package com.cqu.msmservice.controller;
 
 import com.cqu.commonutils.R;
 import com.cqu.msmservice.service.MsmService;
-import com.cqu.msmservice.utils.RandomUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,6 @@ public class MsmController {
     @ApiOperation(value = "发送短信")
     @GetMapping("send/{phone}")
     public R sendMsm(@PathVariable String phone) {
-        //1 从redis获取验证码，如果获取到直接返回
         String code = redisTemplate.opsForValue().get(phone);
         if(!StringUtils.isEmpty(code)) {
             return R.ok();
@@ -44,10 +42,11 @@ public class MsmController {
         //2 如果redis获取 不到，进行阿里云发送
         //生成随机值，传递阿里云进行发送
 //        code = RandomUtil.getFourBitRandom();
+        //写死验证码1234
         code="1234";
         Map<String,Object> param = new HashMap<>();
         param.put("code",code);
-        //调用service发送短信的方法
+
 //        boolean isSend = msmService.send(param,phone);
         boolean isSend=true;
         if(isSend) {
@@ -56,7 +55,7 @@ public class MsmController {
             redisTemplate.opsForValue().set(phone,code,5, TimeUnit.MINUTES);
             return R.ok();
         } else {
-            return R.error().message("短信发送失败");
+            return R.error().message("失败");
         }
     }
 }

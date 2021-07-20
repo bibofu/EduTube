@@ -5,12 +5,17 @@ import com.aliyun.vod.upload.req.UploadStreamRequest;
 import com.aliyun.vod.upload.resp.UploadStreamResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.cqu.commonutils.R;
 import com.cqu.servicebase.exceptionhandler.MyException;
+import com.cqu.vod.client.DailyClient;
 import com.cqu.vod.service.VodService;
 import com.cqu.vod.utils.ConstantVodUtils;
 import com.cqu.vod.utils.InitVodClient;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +29,9 @@ import java.util.List;
 
 @Service
 public class VodServiceImpl implements VodService {
+
+    @Autowired
+    private DailyClient dailyClient;
 
 
     /**
@@ -58,10 +66,7 @@ public class VodServiceImpl implements VodService {
         }
     }
 
-    /**
-     * 根据id删除aliyun视频
-     * @param id 视频id
-     */
+
     @Override
     public void removeById(String id) {
 
@@ -82,10 +87,7 @@ public class VodServiceImpl implements VodService {
 
     }
 
-    /**
-     * 批量删除aliyun视频
-     * @param videoIdList
-     */
+
     @Override
     public void removeMoreAlyVideo(List<String> videoIdList) {
 
@@ -107,6 +109,22 @@ public class VodServiceImpl implements VodService {
             throw new MyException(20001,"删除视频失败");
         }
 
+    }
+
+    @Override
+    public String getAuthById(String id) {
+        try {
+            DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
+            GetVideoPlayAuthRequest getVideoPlayAuthRequest = new GetVideoPlayAuthRequest();
+            getVideoPlayAuthRequest.setVideoId(id);
+            GetVideoPlayAuthResponse response = client.getAcsResponse(getVideoPlayAuthRequest);
+            String Auth=response.getPlayAuth();
+            dailyClient.updateVideoViewNum();
+            return Auth;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new MyException(20001,"凭证获取失败");
+        }
     }
 
 

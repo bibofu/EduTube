@@ -25,12 +25,7 @@ public class showCart {
     @Autowired
     private StatisticsDailyService dailyService;
 
-    @GetMapping("show-chart/{begin}/{end}/{type}")
-    public R showChart(@PathVariable String begin, @PathVariable String
-            end, @PathVariable String type){
-        Map<String, Object> map = dailyService.getChartData(begin, end, type);
-        return R.ok().data(map);
-    }
+
 
     @ApiOperation(value = "获取统计数据")
     @GetMapping("showdata/{day}")

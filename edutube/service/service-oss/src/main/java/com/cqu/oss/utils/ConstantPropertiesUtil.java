@@ -21,8 +21,7 @@ public class ConstantPropertiesUtil implements InitializingBean {
     @Value("${aliyun.oss.file.keysecret}")
     private String keySecret;
 
-//    @Value("${aliyun.oss.file.filehost}")
-//    private String fileHost;
+
 
     @Value("${aliyun.oss.file.bucketname}")
     private String bucketName;
@@ -31,7 +30,6 @@ public class ConstantPropertiesUtil implements InitializingBean {
     public static String ACCESS_KEY_ID;
     public static String ACCESS_KEY_SECRET;
     public static String BUCKET_NAME;
-    //    public static String FILE_HOST ;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -39,7 +37,6 @@ public class ConstantPropertiesUtil implements InitializingBean {
         ACCESS_KEY_ID = keyId;
         ACCESS_KEY_SECRET = keySecret;
         BUCKET_NAME = bucketName;
-//        FILE_HOST = fileHost;
     }
 
 }
