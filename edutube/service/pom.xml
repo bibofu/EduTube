@@ -15,11 +15,9 @@
         <module>service-edu</module>
         <module>service-vod</module>
         <module>service-oss</module>
-        <module>service-cms</module>
         <module>service-ucenter</module>
         <module>service-msm</module>
         <module>service-order</module>
-        <module>service-acl</module>
         <module>service-statistics</module>
         <module>service-act</module>
     </modules>
