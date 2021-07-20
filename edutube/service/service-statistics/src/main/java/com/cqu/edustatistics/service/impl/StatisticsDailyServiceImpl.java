@@ -11,10 +11,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -215,6 +212,28 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
                 default:
                     break;
             }
+        }
+        return map;
+    }
+
+    @Override
+    public Map<String, List<Integer>> getFifteen(String begin,String end) {
+        QueryWrapper<StatisticsDaily> wrapper = new QueryWrapper<>();
+        wrapper.between("date_calculated",begin,end);
+        wrapper.orderByAsc("date_calculated");
+        List<StatisticsDaily> staList = baseMapper.selectList(wrapper);
+
+
+        LinkedHashMap<String,List<Integer>> map=new LinkedHashMap<>();
+
+        for (StatisticsDaily day:staList){
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(day.getRegisterNum());
+            list.add(day.getLoginNum());
+            list.add(day.getVideoViewNum());
+            list.add(day.getCourseNum());
+
+            map.put(day.getDateCalculated(),list);
         }
         return map;
     }

@@ -3,6 +3,7 @@ package com.cqu.edustatistics.service;
 import com.cqu.edustatistics.entity.StatisticsDaily;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,4 +29,6 @@ public interface StatisticsDailyService extends IService<StatisticsDaily> {
     void updateCourse(String day);
 
     Map<String, Object> getChartData(String begin, String end, String type);
+
+    Map<String, List<Integer>> getFifteen(String begin,String end);
 }
