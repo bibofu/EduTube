@@ -33,13 +33,7 @@ public class StatisticsDailyController {
         return R.ok();
     }
 
-    @ApiOperation(value = "图表显示")
-    @GetMapping("showData/{type}/{begin}/{end}")
-    public R showData(@PathVariable String type,@PathVariable String begin,
-                      @PathVariable String end) {
-        Map<String,Object> map = statisticsDailyService.getShowData(type,begin,end);
-        return R.ok().data(map);
-    }
+
 
     @ApiOperation(value = "登陆时修改表中登录人数")
     @PostMapping("updateLoginNum/{day}")

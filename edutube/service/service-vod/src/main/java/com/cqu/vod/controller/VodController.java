@@ -61,21 +61,17 @@ public class VodController {
         return R.ok();
     }
 
+
+    //4. 获取视频播放凭证
     @ApiOperation(value = "获取视频凭证")
     @GetMapping("getPlayAuth/{id}")
-    public R getPlayAuth(@PathVariable String id)
-    {
-        try {
-            DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
-            GetVideoPlayAuthRequest getVideoPlayAuthRequest = new GetVideoPlayAuthRequest();
-            getVideoPlayAuthRequest.setVideoId(id);
-            GetVideoPlayAuthResponse response = client.getAcsResponse(getVideoPlayAuthRequest);
-            String Auth=response.getPlayAuth();
-            return R.ok().data("Auth",Auth);
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new MyException(20001,"凭证获取失败");
-        }
+    public R getPlayAuth(@PathVariable String id){
+
+        String authById = vodService.getAuthById(id);
+
+        return R.ok().data("Auth",authById);
+
+
     }
 
 }

@@ -16,4 +16,6 @@ public interface VodService {
 
 
     void removeMoreAlyVideo(List<String> videoIdList);
+
+    String getAuthById(String id);
 }
