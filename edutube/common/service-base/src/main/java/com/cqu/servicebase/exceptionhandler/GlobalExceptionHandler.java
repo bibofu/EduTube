@@ -39,4 +39,5 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return R.error().code(e.getCode()).message(e.getMsg());
     }
+
 }

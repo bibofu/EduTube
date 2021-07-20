@@ -47,10 +47,6 @@ public class R {
         return r;
     }
 
-    public R success(Boolean success){
-        this.setSuccess(success);
-        return this;
-    }
 
     public R message(String message){
         this.setMessage(message);
