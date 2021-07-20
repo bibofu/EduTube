@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @create 2021-07-16 14:55
  */
 @Component
-@FeignClient("service-statistics")
+@FeignClient(name = "service-statistics",fallback = StatisticsClientFallback.class)
 public interface StatisticsClient {
     @GetMapping(value = "/edustatistics/statistics/updateLoginNum/{day}")
     public R updateLoginNum(@PathVariable("day") String day);

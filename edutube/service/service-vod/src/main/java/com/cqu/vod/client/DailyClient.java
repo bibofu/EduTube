@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 
 @Component
-@FeignClient("service-statistics")
+@FeignClient(name = "service-statistics",fallback = DailyClientFallback.class)
 public interface DailyClient {
 
     @GetMapping("/edustatistics/front/updateVideoViewNum")
