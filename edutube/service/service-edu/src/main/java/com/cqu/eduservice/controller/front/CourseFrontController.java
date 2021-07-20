@@ -6,11 +6,13 @@ import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.R;
 import com.cqu.commonutils.ordervo.CourseWebVoOrder;
 import com.cqu.eduservice.client.OrdersClient;
+import com.cqu.eduservice.entity.CourseCollect;
 import com.cqu.eduservice.entity.EduCourse;
 import com.cqu.eduservice.entity.chapter.ChapterVo;
 import com.cqu.eduservice.entity.frontvo.CourseFrontVo;
 import com.cqu.eduservice.entity.frontvo.CourseWebVo;
 import com.cqu.eduservice.entity.vo.CourseQuery;
+import com.cqu.eduservice.service.CourseCollectService;
 import com.cqu.eduservice.service.EduChapterService;
 import com.cqu.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +45,9 @@ public class CourseFrontController {
 
     @Autowired
     private OrdersClient ordersClient;
+
+    @Autowired
+    private CourseCollectService collectService;
 
     //1 条件查询带分页查询课程
     @ApiOperation(value = "条件查询带分页课程")
@@ -94,6 +100,42 @@ public class CourseFrontController {
         List<EduCourse>list=courseService.getNewCourse();
 
         return R.ok().data("courseList",list);
+
+    }
+
+    @ApiOperation(value = "收藏课程")
+    @PostMapping("collect/{courseId}")
+    public R collect(@PathVariable String courseId,HttpServletRequest request){
+
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+
+        collectService.collect(memberId,courseId);
+
+        return R.ok();
+
+
+    }
+
+    @ApiOperation(value = "查看用户收藏的课程")
+    @GetMapping("getCollect")
+    public R getCollect(HttpServletRequest request){
+
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+
+        QueryWrapper<CourseCollect> wrapper=new QueryWrapper<>();
+        wrapper.eq("member_id",memberId);
+        List<CourseCollect> courseCollectList = collectService.list(wrapper);
+
+        List<EduCourse> list=new ArrayList<>();
+        for(CourseCollect collect:courseCollectList){
+
+            String id = collect.getCourseId();
+            EduCourse course = courseService.getById(id);
+            list.add(course);
+
+        }
+
+        return R.ok().data("collect",list);
 
     }
 }
