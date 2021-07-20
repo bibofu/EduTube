@@ -4,6 +4,7 @@ package com.cqu.eduservice.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqu.commonutils.R;
+import com.cqu.eduservice.client.StatisticsClient;
 import com.cqu.eduservice.entity.EduCourse;
 import com.cqu.eduservice.entity.EduHistory;
 import com.cqu.eduservice.entity.EduTeacher;
@@ -37,6 +38,8 @@ import java.util.List;
 @EnableFeignClients
 public class EduCourseController {
 
+    @Autowired
+    private StatisticsClient statisticsClient;
     @Autowired
     private EduCourseService courseService;
 
@@ -115,7 +118,7 @@ public class EduCourseController {
         history.setDescription("发布课程: "+title);
         historyService.save(history);
 
-
+        statisticsClient.updateCourseNum();
         courseService.updateById(eduCourse);
         return R.ok();
     }
