@@ -146,10 +146,21 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         QueryWrapper<StatisticsDaily>wrapper=new QueryWrapper<>();
         wrapper.eq("date_calculated",day);
         StatisticsDaily daily=baseMapper.selectOne(wrapper);
-        Integer videoNum=daily.getVideoViewNum();
-        videoNum++;
-        daily.setVideoViewNum(videoNum);
-        baseMapper.updateById(daily);
+        if(daily==null)
+        {
+            daily=new StatisticsDaily();
+            daily.setDateCalculated(day);
+            daily.setVideoViewNum(0);
+            Integer videoViewNum=daily.getVideoViewNum();
+            videoViewNum++;
+            daily.setLoginNum(videoViewNum);
+            baseMapper.insert(daily);
+        }else{
+            Integer viewNum=daily.getVideoViewNum();
+            viewNum++;
+            daily.setLoginNum(viewNum);
+            baseMapper.updateById(daily);
+        }
     }
 
     @Override
@@ -157,10 +168,21 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         QueryWrapper<StatisticsDaily>wrapper=new QueryWrapper<>();
         wrapper.eq("date_calculated",day);
         StatisticsDaily daily=baseMapper.selectOne(wrapper);
-        Integer courseNum=daily.getCourseNum();
-        courseNum++;
-        daily.setCourseNum(courseNum);
-        baseMapper.updateById(daily);
+        if(daily==null)
+        {
+            daily=new StatisticsDaily();
+            daily.setDateCalculated(day);
+            daily.setCourseNum(0);
+            Integer courseNum=daily.getCourseNum();
+            courseNum++;
+            daily.setLoginNum(courseNum);
+            baseMapper.insert(daily);
+        }else{
+            Integer courseNum=daily.getCourseNum();
+            courseNum++;
+            daily.setLoginNum(courseNum);
+            baseMapper.updateById(daily);
+        }
     }
 
     @Override
