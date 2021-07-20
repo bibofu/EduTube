@@ -31,10 +31,12 @@ public class EduHotCourseController {
     @GetMapping("getHotCourse")
     public R getHotCourse()
     {
-        QueryWrapper<EduCourse>wrapper=new QueryWrapper<>();
-        wrapper.orderByDesc("id");
-        wrapper.last("limit 8");
-        List<EduCourse>list=courseService.list(wrapper);
+//        QueryWrapper<EduCourse>wrapper=new QueryWrapper<>();
+//        wrapper.orderByDesc("id");
+//        wrapper.last("limit 8");
+//        List<EduCourse>list=courseService.list(wrapper);
+
+        List<EduCourse> list = courseService.getHotCourse();
         return R.ok().data("courseList",list);
     }
 }

@@ -19,6 +19,7 @@ import com.cqu.servicebase.exceptionhandler.MyException;
 import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -210,6 +211,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         }
     }
 
+
     @Override
     public List<EduCourse> getNewCourse() {
         QueryWrapper<EduCourse>wrapper=new QueryWrapper<>();
@@ -217,6 +219,16 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         wrapper.last("limit 4");
         List<EduCourse>list=baseMapper.selectList(wrapper);
         return list;
+    }
+    @Cacheable(key = "'hotCourse'",value = "course")
+    @Override
+    public List<EduCourse> getHotCourse() {
+        QueryWrapper<EduCourse>wrapper=new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        wrapper.last("limit 8");
+        List<EduCourse> courses = baseMapper.selectList(wrapper);
+        return courses;
+
     }
 
 

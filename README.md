@@ -1,3 +1,3 @@
 # EduTube
 
-springboot+springcloud+阿里云mysql+阿里云redis+阿里云oss+阿里云视频点播+nginx+nacos+微信扫码登录+阿里云短信服务(暂未实现)+微信支付
+基于springboot和mybatisplus搭建的学习网站，管理员可以上传课程，包括视频。用户登入后可以选择自己感兴趣的课程进行购买及学习

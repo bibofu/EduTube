@@ -6,6 +6,8 @@ import com.cqu.eduservice.entity.EduTeacher;
 import com.cqu.eduservice.mapper.EduTeacherMapper;
 import com.cqu.eduservice.service.EduTeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -22,6 +24,8 @@ import java.util.Map;
  */
 @Service
 public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeacher> implements EduTeacherService {
+
+
 
     @Override
     public Map<String, Object> getTeacherFrontList(Page<EduTeacher> teacherPage) {
@@ -46,5 +50,17 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
         map.put("hasNext", hasNext);
         map.put("hasPrevious", hasPrevious);
         return map;
+    }
+
+    //添加热门讲师到redis缓存
+    @Cacheable(key = "'hotList'",value = "teacher")
+    @Override
+    public List<EduTeacher> getHotTeacher() {
+        QueryWrapper<EduTeacher>wrapper=new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        wrapper.last("limit 4");
+        List<EduTeacher> list = baseMapper.selectList(wrapper);
+
+        return list;
     }
 }
