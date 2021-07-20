@@ -6,6 +6,7 @@ import com.cqu.ucenter.entity.Member;
 import com.cqu.ucenter.service.MemberService;
 import com.cqu.ucenter.utils.ConstantWxUtils;
 import com.cqu.ucenter.utils.HttpClientUtils;
+import com.cqu.ucenter.utils.StatisticsClient;
 import com.google.gson.Gson;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -31,6 +34,8 @@ public class WxApiController {
     private MemberService memberService;
     @Autowired
     private ConstantWxUtils constantWxUtils;
+    @Autowired
+    private StatisticsClient statisticsClient;
     @ApiOperation(value = "获取回调")
     @GetMapping("callback")
     public String callback(String code, String state, HttpSession httpSession){
@@ -71,7 +76,18 @@ public class WxApiController {
                     member.setNickname(nickname);
                     member.setOpenid(openid);
                     member.setAvatar(headimgurl);
+                    Date date=new Date();
+                    String pattern="yyyy-MM-dd";
+                    SimpleDateFormat sdf=new SimpleDateFormat(pattern);
+                    String day=sdf.format(date);
+                    statisticsClient.updateRegisterNum(day);
                     memberService.save(member);
+                }else{
+                    Date date=new Date();
+                    String pattern="yyyy-MM-dd";
+                    SimpleDateFormat sdf=new SimpleDateFormat(pattern);
+                    String day=sdf.format(date);
+                    statisticsClient.updateLoginNum(day);
                 }
                 String jwtToken=JwtUtils.getJwtToken(member.getId(),member.getNickname());
 
