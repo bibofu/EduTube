@@ -87,5 +87,13 @@ public class CourseFrontController {
         return R.ok().data("courseOrder",courseWebVoOrder);
     }
 
+    @ApiOperation(value = "获取前4新的课程的轮播图")
+    @GetMapping("getNewCourse")
+    public R getNewCourse()
+    {
+        List<EduCourse>list=courseService.getNewCourse();
 
+        return R.ok().data("courseList",list);
+
+    }
 }
