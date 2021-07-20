@@ -16,6 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UcenterClient {
 
     //根据用户id获取用户登录信息
-    @GetMapping("/ucenter/member/getUserInfo/{id}")
+    @GetMapping("/ucenter/member/getCommentInfo/{id}")
     public LoginInfoVo getUcenterInfo(@PathVariable("id") String id);
 }

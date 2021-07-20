@@ -81,7 +81,7 @@ public class MemberController {
     }
 
     //根据token获取用户信息
-    @ApiOperation("根据token获取用户详细信息")
+    @ApiOperation(value = "根据token获取用户详细信息")
     @GetMapping("getMemberInfo")
     public R getMemberInfo(HttpServletRequest request) {
         //调用jwt工具类的方法。根据request对象获取头信息，返回用户id
@@ -93,6 +93,17 @@ public class MemberController {
 
 
 
+    //用于课程评论时返回用户信息
+    @ApiOperation(value = "评论时返回用户信息")
+    @GetMapping("getCommentInfo")
+    public LoginInfoVo getUcenterInfo(@PathVariable("id") String id){
+
+        LoginInfoVo info = memberService.getLoginInfo(id);
+
+        return info;
+
+
+    }
 
     // 根据用户id获取信息
     @ApiOperation("根据id获取用户登录信息")
