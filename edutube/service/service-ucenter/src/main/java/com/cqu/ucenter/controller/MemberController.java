@@ -100,6 +100,9 @@ public class MemberController {
 
         LoginInfoVo info = memberService.getLoginInfo(id);
 
+        System.out.println(info.getNickname());
+        System.out.println(info.getAvatar());
+
         return info;
 
 
