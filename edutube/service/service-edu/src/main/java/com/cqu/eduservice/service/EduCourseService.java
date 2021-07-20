@@ -37,5 +37,9 @@ public interface EduCourseService extends IService<EduCourse> {
 
     void removeBySubjectId(String id);
 
+
+    List<EduCourse> getNewCourse();
+
     List<EduCourse> getHotCourse();
+
 }

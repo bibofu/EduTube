@@ -211,6 +211,15 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         }
     }
 
+
+    @Override
+    public List<EduCourse> getNewCourse() {
+        QueryWrapper<EduCourse>wrapper=new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        wrapper.last("limit 4");
+        List<EduCourse>list=baseMapper.selectList(wrapper);
+        return list;
+    }
     @Cacheable(key = "'hotCourse'",value = "course")
     @Override
     public List<EduCourse> getHotCourse() {
@@ -219,6 +228,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         wrapper.last("limit 8");
         List<EduCourse> courses = baseMapper.selectList(wrapper);
         return courses;
+
     }
 
 
