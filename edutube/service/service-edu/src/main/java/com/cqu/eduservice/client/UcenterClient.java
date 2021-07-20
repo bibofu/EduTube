@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 
 @Component
-@FeignClient(name="service-ucenter",fallback = UcenterClientImpl.class)
+@FeignClient(name="service-ucenter",fallback = UcenterClientFallback.class)
 public interface UcenterClient {
 
     //根据用户id获取用户登录信息

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class UcenterClientImpl implements UcenterClient{
+public class UcenterClientFallback implements UcenterClient{
 
 
     @Override
