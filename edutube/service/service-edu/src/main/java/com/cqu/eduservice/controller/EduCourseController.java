@@ -162,6 +162,21 @@ public class EduCourseController {
         return R.ok().data("total",total).data("rows",records);
     }
 
+    //增加课程热度方法
+    @ApiOperation(value = "增加课程热度")
+    @PostMapping("addhot/{courseId}")
+    public R addhot(@PathVariable String courseId){
+
+        EduCourse course = courseService.getById(courseId);
+        Long hot = course.getVersion();
+        hot=hot+1;
+        course.setVersion(hot);
+        courseService.updateById(course);
+
+        return R.ok();
+
+    }
+
 
 }
 

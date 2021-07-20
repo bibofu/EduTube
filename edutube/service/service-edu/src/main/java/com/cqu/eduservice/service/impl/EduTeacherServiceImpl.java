@@ -57,7 +57,7 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
     @Override
     public List<EduTeacher> getHotTeacher() {
         QueryWrapper<EduTeacher>wrapper=new QueryWrapper<>();
-        wrapper.orderByDesc("id");
+        wrapper.orderByDesc("sort");
         wrapper.last("limit 4");
         List<EduTeacher> list = baseMapper.selectList(wrapper);
 
