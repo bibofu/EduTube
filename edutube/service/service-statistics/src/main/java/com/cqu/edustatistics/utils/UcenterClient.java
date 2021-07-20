@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @create 2021-07-15 16:13
  */
 @Component
-@FeignClient("service-ucenter")
+@FeignClient(name = "service-ucenter",fallback = UcenterClientFallback.class)
 public interface UcenterClient {
     @GetMapping(value = "/ucenter/member/countregister/{day}")
     public R registerCount(@PathVariable("day") String day);
