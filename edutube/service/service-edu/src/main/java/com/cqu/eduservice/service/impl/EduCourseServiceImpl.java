@@ -68,8 +68,6 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             //添加失败
             throw new MyException(20001, "添加课程信息失败");
         }
-
-        statisticsClient.updateCourseNum();
         //获取添加之后课程id
         String cid = eduCourse.getId();
 
