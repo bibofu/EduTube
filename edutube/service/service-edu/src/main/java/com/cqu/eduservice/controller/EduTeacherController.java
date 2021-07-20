@@ -218,6 +218,19 @@ public class EduTeacherController {
 
     }
 
+    //10 增加讲师热度
+    @ApiOperation(value = "增加讲师热度")
+    @PostMapping("addteahot/{teacherId}")
+    public R addhot(@PathVariable String teacherId){
+        EduTeacher teacher = teacherService.getById(teacherId);
+        Integer sort = teacher.getSort();
+        sort++;
+        teacher.setSort(sort);
+        teacherService.updateById(teacher);
+
+        return R.ok();
+    }
+
 
 
 
