@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 
 @Component
-@FeignClient("service-order")
+@FeignClient(name = "service-order",fallback = OrdersClientFallback.class)
 public interface OrdersClient {
 
     //根据课程id和用户id查询订单表中订单状态

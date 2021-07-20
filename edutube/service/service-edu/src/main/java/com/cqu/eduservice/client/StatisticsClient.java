@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @create 2021-07-16 16:12
  */
 @Component
-@FeignClient("service-statistics")
+@FeignClient(name = "service-statistics",fallback = StatisticsClientFallback.class)
 public interface StatisticsClient {
 
     @GetMapping("/edustatistics/front/updateCourseNum")
