@@ -210,6 +210,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     }
 
 
+    @Cacheable(key = "'IndexList'",value = "bannerlist")
     @Override
     public List<EduCourse> getNewCourse() {
         QueryWrapper<EduCourse>wrapper=new QueryWrapper<>();
