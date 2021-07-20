@@ -95,8 +95,8 @@ public class MemberController {
 
     //用于课程评论时返回用户信息
     @ApiOperation(value = "评论时返回用户信息")
-    @GetMapping("getCommentInfo")
-    public LoginInfoVo getUcenterInfo(@PathVariable("id") String id){
+    @GetMapping("getCommentInfo/{id}")
+    public LoginInfoVo getUcenterInfo(@PathVariable String id){
 
         LoginInfoVo info = memberService.getLoginInfo(id);
 
