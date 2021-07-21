@@ -185,4 +185,28 @@ public class CourseFrontController {
 
 
     }
+
+    //取消收藏
+    @ApiOperation(value = "取消收藏")
+    @PostMapping("cancelcollect/{courseId}")
+    public R cacel(@PathVariable  String courseId,HttpServletRequest request){
+
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+
+        if(StringUtils.isEmpty(memberId)) {
+            return R.error().code(28004).message("请登录");
+        }
+
+        QueryWrapper<CourseCollect> wrapper=new QueryWrapper<>();
+        wrapper.eq("member_id",memberId);
+        wrapper.eq("course_id",courseId);
+
+
+        collectService.remove(wrapper);
+
+        return R.ok();
+
+
+
+    }
 }
