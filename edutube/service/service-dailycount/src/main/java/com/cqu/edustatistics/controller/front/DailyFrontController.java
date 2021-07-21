@@ -4,10 +4,7 @@ import com.cqu.commonutils.R;
 import com.cqu.edustatistics.service.StatisticsDailyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +20,7 @@ import java.util.Date;
 public class DailyFrontController {
     @Autowired
     private StatisticsDailyService statisticsDailyService;
-    @GetMapping("updateVideoViewNum")
+    @PostMapping("updateVideoViewNum")
     public R updateVideoViewNum()
     {
         Date date=new Date();
@@ -34,7 +31,7 @@ public class DailyFrontController {
         return R.ok();
     }
 
-    @GetMapping("updateCourseNum")
+    @PostMapping("updateCourseNum")
     public R updateCourseNum()
     {
         Date date=new Date();

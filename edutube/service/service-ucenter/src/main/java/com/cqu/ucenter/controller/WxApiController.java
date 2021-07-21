@@ -91,7 +91,7 @@ public class WxApiController {
                 }
                 String jwtToken=JwtUtils.getJwtToken(member.getId(),member.getNickname());
 
-                return "redirect:http://localhost:3000?token="+jwtToken;
+                return "redirect:http://localhost:9112?token="+jwtToken;
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new MyException(20001,"Login Error");

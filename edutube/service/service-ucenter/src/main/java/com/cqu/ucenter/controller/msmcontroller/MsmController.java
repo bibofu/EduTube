@@ -1,7 +1,6 @@
-package com.cqu.msmservice.controller;
+package com.cqu.ucenter.controller.msmcontroller;
 
 import com.cqu.commonutils.R;
-import com.cqu.msmservice.service.MsmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +14,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author fubibo
- * @create 2021-07-14 下午5:19
+ * @create 2021-07-21 下午2:06
  */
-
 
 @Api(description = "根据手机号发送验证码")
 @RestController
 @RequestMapping("/edumsm/msm")
 @CrossOrigin
 public class MsmController {
-
-    @Autowired
-    private MsmService msmService;
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
@@ -58,4 +53,6 @@ public class MsmController {
             return R.error().message("失败");
         }
     }
+
+
 }
