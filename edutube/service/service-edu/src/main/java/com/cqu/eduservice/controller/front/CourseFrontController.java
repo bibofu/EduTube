@@ -72,12 +72,13 @@ public class CourseFrontController {
         //根据课程id查询章节和小节
         List<ChapterVo> chapterVideoList = chapterService.getChapterVideoById(courseId);
         String memberId=JwtUtils.getMemberIdByJwtToken(request);
-        boolean buyCourse=false;
-        if(!memberId.isEmpty())
-        buyCourse = ordersClient.isBuyCourse(courseId, memberId);
-        else{
-            throw new MyException(20001,"未登录");
+
+        if (StringUtils.isEmpty(memberId)){
+            return R.error().code(28004).message("请登录");
         }
+
+        boolean buyCourse = ordersClient.isBuyCourse(courseId, memberId);
+
 
         return R.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVideoList).data("isBuy",buyCourse);
     }

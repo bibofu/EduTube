@@ -7,7 +7,6 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
-import com.cqu.commonutils.R;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.vod.client.DailyClient;
 import com.cqu.vod.service.VodService;
