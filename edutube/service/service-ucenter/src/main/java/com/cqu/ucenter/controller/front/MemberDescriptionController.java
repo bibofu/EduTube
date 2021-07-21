@@ -92,6 +92,25 @@ public class MemberDescriptionController {
             throw new MyException(20001,"修改昵称失败");
         }
     }
+    @ApiOperation(value = "修改手机号")
+    @PostMapping("updateMobile/{mobile}")
+    public R updateMobile(HttpServletRequest request,@PathVariable String mobile)
+    {
+        try{
+            String memberId = JwtUtils.getMemberIdByJwtToken(request);
+            if(StringUtils.isEmpty(memberId)) {
+                return R.error().code(28004).message("请登录");
+            }
+            Member member=memberService.getById(memberId);
+            member.setMobile(mobile);
+            memberService.updateById(member);
+            return R.ok();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new MyException(20001,"修改手机号失败");
+        }
+    }
     @ApiOperation(value = "修改密码")
     @PostMapping("updatePassword/{password}")
     public R updatePassword(HttpServletRequest request,@PathVariable String password){
