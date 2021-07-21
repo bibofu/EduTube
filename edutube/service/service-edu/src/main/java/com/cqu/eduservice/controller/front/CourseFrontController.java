@@ -15,6 +15,7 @@ import com.cqu.eduservice.entity.vo.CourseQuery;
 import com.cqu.eduservice.service.CourseCollectService;
 import com.cqu.eduservice.service.EduChapterService;
 import com.cqu.eduservice.service.EduCourseService;
+import com.cqu.servicebase.exceptionhandler.MyException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -71,7 +72,12 @@ public class CourseFrontController {
         //根据课程id查询章节和小节
         List<ChapterVo> chapterVideoList = chapterService.getChapterVideoById(courseId);
         String memberId=JwtUtils.getMemberIdByJwtToken(request);
-        boolean buyCourse = ordersClient.isBuyCourse(courseId, memberId);
+        boolean buyCourse=false;
+        if(memberId!=null)
+        buyCourse = ordersClient.isBuyCourse(courseId, memberId);
+        else{
+            throw new MyException(20001,"未登录");
+        }
 
         return R.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVideoList).data("isBuy",buyCourse);
     }
@@ -109,7 +115,11 @@ public class CourseFrontController {
     public R collect(@PathVariable String courseId,HttpServletRequest request){
 
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
-
+        if(memberId!=null)
+        collectService.collect(memberId,courseId);
+        else{
+            throw new MyException(20001,"未登录");
+        }
         QueryWrapper<CourseCollect> wrapper=new QueryWrapper<>();
         wrapper.eq("member_id",memberId);
         wrapper.eq("course_id",courseId);
@@ -119,8 +129,6 @@ public class CourseFrontController {
         }else {
             collectService.collect(memberId,courseId);
         }
-
-
         return R.ok();
 
 
