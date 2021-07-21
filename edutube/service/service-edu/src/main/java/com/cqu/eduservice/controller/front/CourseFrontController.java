@@ -73,7 +73,7 @@ public class CourseFrontController {
         List<ChapterVo> chapterVideoList = chapterService.getChapterVideoById(courseId);
         String memberId=JwtUtils.getMemberIdByJwtToken(request);
         boolean buyCourse=false;
-        if(memberId!=null)
+        if(!memberId.isEmpty())
         buyCourse = ordersClient.isBuyCourse(courseId, memberId);
         else{
             throw new MyException(20001,"未登录");
@@ -115,11 +115,11 @@ public class CourseFrontController {
     public R collect(@PathVariable String courseId,HttpServletRequest request){
 
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
-        if(memberId!=null)
-        collectService.collect(memberId,courseId);
-        else{
-            throw new MyException(20001,"未登录");
+
+        if(StringUtils.isEmpty(memberId)) {
+            return R.error().code(28004).message("请登录");
         }
+
         QueryWrapper<CourseCollect> wrapper=new QueryWrapper<>();
         wrapper.eq("member_id",memberId);
         wrapper.eq("course_id",courseId);
