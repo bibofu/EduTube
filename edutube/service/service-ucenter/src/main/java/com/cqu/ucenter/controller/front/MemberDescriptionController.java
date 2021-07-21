@@ -5,6 +5,7 @@ import com.cqu.commonutils.MD5;
 import com.cqu.commonutils.R;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.ucenter.entity.Member;
+import com.cqu.ucenter.entity.Vo.UrlVo;
 import com.cqu.ucenter.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,8 +54,8 @@ public class MemberDescriptionController {
     }
 
     @ApiOperation(value = "修改头像")
-    @PostMapping("updateAvatar/{url}")
-    public R updateAvatar(HttpServletRequest request, @PathVariable String url)
+    @PostMapping("updateAvatar")
+    public R updateAvatar(HttpServletRequest request, @RequestBody UrlVo url)
     {
         try {
             String memberId = JwtUtils.getMemberIdByJwtToken(request);
@@ -63,7 +64,7 @@ public class MemberDescriptionController {
             }
 
             Member member=memberService.getById(memberId);
-            member.setAvatar(url);
+            member.setAvatar(url.getUrl());
             memberService.updateById(member);
             return R.ok();
         }catch (Exception e){
