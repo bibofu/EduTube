@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Component
-@FeignClient("service-ucenter")
+@FeignClient(name = "service-ucenter",fallback = UcenterClientfallback.class)
 public interface UcenterClient {
 
     //根据用户id获取用户信息

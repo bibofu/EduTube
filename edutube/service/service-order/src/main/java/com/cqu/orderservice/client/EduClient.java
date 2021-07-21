@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 
 @Component
-@FeignClient("service-edu")
+@FeignClient(name = "service-edu",fallback = EduClientfallback.class)
 public interface EduClient {
 
     //根据课程id查询课程信息
