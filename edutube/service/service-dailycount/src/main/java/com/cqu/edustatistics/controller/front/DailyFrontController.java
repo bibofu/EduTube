@@ -20,6 +20,8 @@ import java.util.Date;
 public class DailyFrontController {
     @Autowired
     private StatisticsDailyService statisticsDailyService;
+
+
     @PostMapping("updateVideoViewNum")
     public R updateVideoViewNum()
     {
