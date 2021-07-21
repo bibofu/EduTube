@@ -4,6 +4,7 @@ import com.cqu.commonutils.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author fubibo
@@ -14,6 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name = "service-statistics",fallback = DailyClientFallback.class)
 public interface DailyClient {
 
-    @GetMapping("/edustatistics/front/updateVideoViewNum")
+    @PostMapping("/edustatistics/front/updateVideoViewNum")
     public R updateVideoViewNum();
 }

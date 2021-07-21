@@ -16,10 +16,10 @@
         <module>service-vod</module>
         <module>service-oss</module>
         <module>service-ucenter</module>
-        <module>service-msm</module>
-        <module>service-order</module>
-        <module>service-statistics</module>
+        <module>service-pay</module>
+        <module>service-dailycount</module>
         <module>service-act</module>
+        <module>service-alipay</module>
     </modules>
 
     <dependencies>
@@ -86,6 +86,8 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
+
+
 
         <dependency>
             <groupId>io.springfox</groupId>
