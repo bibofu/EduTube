@@ -20,6 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,7 +120,15 @@ public class CourseFrontController {
         else{
             throw new MyException(20001,"未登录");
         }
-
+        QueryWrapper<CourseCollect> wrapper=new QueryWrapper<>();
+        wrapper.eq("member_id",memberId);
+        wrapper.eq("course_id",courseId);
+        int count = collectService.count(wrapper);
+        if (count>0){
+            return R.ok().message("课程不能重复收藏");
+        }else {
+            collectService.collect(memberId,courseId);
+        }
         return R.ok();
 
 
@@ -130,6 +139,10 @@ public class CourseFrontController {
     public R getCollect(HttpServletRequest request){
 
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
+
+        if(StringUtils.isEmpty(memberId)) {
+            return R.error().code(28004).message("请登录");
+        }
 
         QueryWrapper<CourseCollect> wrapper=new QueryWrapper<>();
         wrapper.eq("member_id",memberId);
@@ -145,6 +158,31 @@ public class CourseFrontController {
         }
 
         return R.ok().data("collect",list);
+
+    }
+
+    //判断用户是否已经收藏某一门课程
+    @GetMapping("hascollect/{courseId}")
+    @ApiOperation(value = "判断用户是否已经收藏某一门课程")
+    public R hasCollect(@PathVariable String courseId,HttpServletRequest request){
+
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+
+        if(StringUtils.isEmpty(memberId)) {
+            return R.error().code(28004).message("请登录");
+        }
+
+        QueryWrapper<CourseCollect> wrapper=new QueryWrapper<>();
+        wrapper.eq("member_id",memberId);
+        wrapper.eq("course_id",courseId);
+
+        int count = collectService.count(wrapper);
+        if (count>0){
+            return R.ok().data("hascollect",1);
+        }else{
+            return R.ok().data("hascollect",0);
+        }
+
 
     }
 }
