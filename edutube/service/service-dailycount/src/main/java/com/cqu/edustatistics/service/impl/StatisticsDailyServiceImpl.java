@@ -112,12 +112,12 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
             daily.setVideoViewNum(0);
             Integer videoViewNum=daily.getVideoViewNum();
             videoViewNum++;
-            daily.setLoginNum(videoViewNum);
+            daily.setVideoViewNum(videoViewNum);
             baseMapper.insert(daily);
         }else{
             Integer viewNum=daily.getVideoViewNum();
             viewNum++;
-            daily.setLoginNum(viewNum);
+            daily.setVideoViewNum(viewNum);
             baseMapper.updateById(daily);
         }
     }
@@ -134,12 +134,12 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
             daily.setCourseNum(0);
             Integer courseNum=daily.getCourseNum();
             courseNum++;
-            daily.setLoginNum(courseNum);
+            daily.setCourseNum(courseNum);
             baseMapper.insert(daily);
         }else{
             Integer courseNum=daily.getCourseNum();
             courseNum++;
-            daily.setLoginNum(courseNum);
+            daily.setCourseNum(courseNum);
             baseMapper.updateById(daily);
         }
     }
