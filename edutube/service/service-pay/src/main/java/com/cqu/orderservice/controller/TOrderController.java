@@ -43,7 +43,7 @@ public class TOrderController {
         return R.ok().data("orderId",orderNo);
     }
 
-    // 2 根据订单id生成订单信息
+    // 2 根据订单id查看订单信息
     @ApiOperation(value = "根据订单id查看订单信息")
     @GetMapping("getOrderInfo/{orderId}")
     public R getOrderInfo(@PathVariable String orderId){
