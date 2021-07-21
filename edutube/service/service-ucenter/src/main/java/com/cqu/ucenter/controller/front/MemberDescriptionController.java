@@ -5,6 +5,8 @@ import com.cqu.commonutils.MD5;
 import com.cqu.commonutils.R;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import com.cqu.ucenter.entity.Member;
+import com.cqu.ucenter.entity.Vo.LoginVo;
+import com.cqu.ucenter.entity.Vo.OtherVo;
 import com.cqu.ucenter.entity.Vo.UrlVo;
 import com.cqu.ucenter.service.MemberService;
 import io.swagger.annotations.Api;
@@ -12,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -73,9 +74,9 @@ public class MemberDescriptionController {
         }
 
     }
-    @ApiOperation(value = "修改昵称")
-    @PostMapping("updateNickname/{nickname}")
-    public R updateNickname(HttpServletRequest request,@PathVariable String nickname){
+    @ApiOperation(value = "修改昵称性别年龄")
+    @PostMapping("updateOther")
+    public R updateOther(HttpServletRequest request,@RequestBody OtherVo otherVo){
         try {
             String memberId = JwtUtils.getMemberIdByJwtToken(request);
             if(StringUtils.isEmpty(memberId)) {
@@ -83,13 +84,35 @@ public class MemberDescriptionController {
             }
 
             Member member=memberService.getById(memberId);
-            member.setNickname(nickname);
-            String token=JwtUtils.getJwtToken(memberId,nickname);
+            member.setNickname(otherVo.getNickname());
+            member.setSex(otherVo.getSex());
+            member.setAge(otherVo.getAge());
+            String token=JwtUtils.getJwtToken(memberId,otherVo.getNickname());
             memberService.updateById(member);
             return R.ok().data("token",token);
         }catch (Exception e){
             e.printStackTrace();
             throw new MyException(20001,"修改昵称失败");
+        }
+    }
+    @ApiOperation(value = "修改手机号和密码")
+    @PostMapping("updateMobilePass")
+    public R updateMobilePass(HttpServletRequest request, @RequestBody LoginVo loginVo)
+    {
+        try{
+            String memberId = JwtUtils.getMemberIdByJwtToken(request);
+            if(StringUtils.isEmpty(memberId)) {
+                return R.error().code(28004).message("请登录");
+            }
+            Member member=memberService.getById(memberId);
+            member.setMobile(loginVo.getMobile());
+            member.setPassword(loginVo.getPassword());
+            memberService.updateById(member);
+            return R.ok();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new MyException(20001,"修改手机号和密码失败");
         }
     }
     @ApiOperation(value = "修改手机号")
