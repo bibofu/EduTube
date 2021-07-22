@@ -71,6 +71,17 @@ public class TOrderController {
         }
     }
 
+    @PostMapping("statusChange/{orderNo}")
+    public R statusChange(@PathVariable String orderNo)
+    {
+        QueryWrapper<TOrder> wrapper=new QueryWrapper<>();
+        wrapper.eq("order_no",orderNo);
+        TOrder one = orderService.getOne(wrapper);
+        one.setStatus(1);
+        orderService.updateById(one);
+        return R.ok();
+    }
+
 
 
 
