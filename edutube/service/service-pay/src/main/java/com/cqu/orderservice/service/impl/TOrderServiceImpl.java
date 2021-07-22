@@ -46,6 +46,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         //通过远程调用根据课程id获取课信息
         CourseWebVoOrder courseInfoOrder = eduClient.getCourseInfoOrder(courseId);
 
+
         //创建Order对象，向order对象里面设置需要数据
         TOrder order = new TOrder();
         order.setOrderNo(OrderNoUtil.getOrderNo());//订单号
@@ -61,6 +62,9 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         order.setPayType(1);  //支付类型 ，微信1
         baseMapper.insert(order);
         //返回订单号
+        /*if(userInfoOrder==null)System.out.println("userInfoOrder is null!");
+        else System.out.println(userInfoOrder);
+        if(courseInfoOrder==null)System.out.println("courseInfoOrder is null!");*/
         return order.getOrderNo();
     }
 }
