@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -69,6 +71,21 @@ public class TOrderController {
         } else {
             return false;
         }
+    }
+
+    @PostMapping("findCourse/{memberId}")
+    public List<String> findCourse(@PathVariable String memberId)
+    {
+        QueryWrapper<TOrder>wrapper=new QueryWrapper<>();
+        wrapper.eq("member_id",memberId);
+        List<TOrder>orderList=orderService.list(wrapper);
+        List<String>list=new ArrayList<>();
+        for(int i=0;i<orderList.size();i++)
+        {
+            TOrder order=orderList.get(i);
+            list.add(order.getCourseId());
+        }
+        return list;
     }
 
     @PostMapping("statusChange/{orderNo}")
