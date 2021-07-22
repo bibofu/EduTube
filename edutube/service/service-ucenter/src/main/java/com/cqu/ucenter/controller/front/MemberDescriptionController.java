@@ -1,5 +1,6 @@
 package com.cqu.ucenter.controller.front;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.MD5;
 import com.cqu.commonutils.R;
@@ -105,8 +106,15 @@ public class MemberDescriptionController {
                 return R.error().code(28004).message("请登录");
             }
             Member member=memberService.getById(memberId);
+            QueryWrapper<Member>wrapper=new QueryWrapper<>();
+            wrapper.eq("mobile",loginVo.getMobile());
+            Member member1=memberService.getOne(wrapper);
+            if(member1!=null)
+            {
+                return R.error().message("手机号已注册！");
+            }
             member.setMobile(loginVo.getMobile());
-            member.setPassword(loginVo.getPassword());
+            member.setPassword(MD5.encrypt(loginVo.getPassword()));
             memberService.updateById(member);
             return R.ok();
         }catch (Exception e)
