@@ -47,5 +47,6 @@ public class EduActivityController {
         activityService.updateById(activity);
         return R.ok();
     }
+
 }
 
