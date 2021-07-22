@@ -78,7 +78,7 @@ public class TOrderController {
     {
         QueryWrapper<TOrder>wrapper=new QueryWrapper<>();
         wrapper.eq("member_id",memberId);
-        List<TOrder>orderList=orderService.list(wrapper);
+        List<TOrder> orderList=orderService.list(wrapper);
         List<String>list=new ArrayList<>();
         for(int i=0;i<orderList.size();i++)
         {
