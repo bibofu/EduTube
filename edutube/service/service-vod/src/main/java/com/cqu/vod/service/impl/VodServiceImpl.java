@@ -46,7 +46,9 @@ public class VodServiceImpl implements VodService {
 
             InputStream stream = file.getInputStream();
 
-            UploadStreamRequest request = new UploadStreamRequest(ConstantVodUtils.ACCESS_KEY_ID,ConstantVodUtils.ACCESS_KEY_SECRET, title, filename, stream);
+            UploadStreamRequest request =
+                    new UploadStreamRequest(ConstantVodUtils.ACCESS_KEY_ID,
+                            ConstantVodUtils.ACCESS_KEY_SECRET, title, filename, stream);
 
             UploadVideoImpl uploader = new UploadVideoImpl();
             UploadStreamResponse response = uploader.uploadStream(request);
@@ -54,7 +56,9 @@ public class VodServiceImpl implements VodService {
             String videoId = null;
             if (response.isSuccess()) {
                 videoId = response.getVideoId();
-            } else { //如果设置回调URL无效，不影响视频上传，可以返回VideoId同时会返回错误码。其他情况上传失败时，VideoId为空，此时需要根据返回错误码分析具体错误原因
+            } else { //如果设置回调URL无效，不影响视频上传，
+                // 可以返回VideoId同时会返回错误码。
+                // 其他情况上传失败时，VideoId为空，此时需要根据返回错误码分析具体错误原因
                 videoId = response.getVideoId();
             }
             return videoId;
