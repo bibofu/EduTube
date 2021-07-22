@@ -4,6 +4,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 /**
  * @author fubibo
@@ -18,5 +21,6 @@ public interface OrdersClient {
     @GetMapping("/eduorder/order/isBuyCourse/{courseId}/{memberId}")
     public boolean isBuyCourse(@PathVariable("courseId") String courseId, @PathVariable("memberId") String memberId);
 
-
+    @PostMapping("eduorder/order/findCourse/{memberId}")
+    public List<String> findCourse(@PathVariable("memberId") String memberId);
 }

@@ -135,6 +135,26 @@ public class CourseFrontController {
 
     }
 
+    @ApiOperation(value = "查看用户购买课程")
+    @GetMapping("getBuy")
+    public R getBuy(HttpServletRequest request){
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+
+        if(StringUtils.isEmpty(memberId)) {
+            return R.error().code(28004).message("请登录");
+        }
+        List<String> courseIdList=ordersClient.findCourse(memberId);
+
+        List<EduCourse> courseList=new ArrayList<>();
+
+        for(int i=0;i<courseIdList.size();i++){
+            String id=courseIdList.get(i);
+            EduCourse course=courseService.getById(id);
+            courseList.add(course);
+        }
+        return R.ok().data("courseBuyList",courseList);
+    }
+
     @ApiOperation(value = "查看用户收藏的课程")
     @GetMapping("getCollect")
     public R getCollect(HttpServletRequest request){
