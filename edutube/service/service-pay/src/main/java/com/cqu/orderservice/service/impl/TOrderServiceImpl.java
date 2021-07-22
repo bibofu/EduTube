@@ -1,5 +1,6 @@
 package com.cqu.orderservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqu.commonutils.ordervo.CourseWebVoOrder;
 import com.cqu.commonutils.ordervo.UcenterMemberOrder;
 import com.cqu.orderservice.client.EduClient;
@@ -46,7 +47,14 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         //通过远程调用根据课程id获取课信息
         CourseWebVoOrder courseInfoOrder = eduClient.getCourseInfoOrder(courseId);
 
-
+        QueryWrapper<TOrder>wrapper=new QueryWrapper<>();
+        wrapper.eq("course_id",courseId);
+        wrapper.eq("member_id",userId);
+        TOrder tOrder=baseMapper.selectOne(wrapper);
+        if(tOrder!=null)
+        {
+            return tOrder.getOrderNo();
+        }
         //创建Order对象，向order对象里面设置需要数据
         TOrder order = new TOrder();
         order.setOrderNo(OrderNoUtil.getOrderNo());//订单号
@@ -60,6 +68,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         order.setNickname(userInfoOrder.getNickname());
         order.setStatus(0);  //订单状态（0：未支付 1：已支付）
         order.setPayType(1);  //支付类型 ，微信1
+
         baseMapper.insert(order);
         //返回订单号
         /*if(userInfoOrder==null)System.out.println("userInfoOrder is null!");
