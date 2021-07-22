@@ -141,7 +141,7 @@ public class MemberController {
     }
     // 根据用户id获取订单用户信息
     @ApiOperation(value = "根据用户id获取订单用户信息")
-    @GetMapping("getUserInfoOrder/{id}")
+    @PostMapping("getUserInfoOrder/{id}")
     public UcenterMemberOrder getUserInfoOrder(@PathVariable String id){
         UcenterMemberOrder memberOrder=new UcenterMemberOrder();
 

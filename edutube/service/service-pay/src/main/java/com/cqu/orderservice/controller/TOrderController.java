@@ -4,6 +4,7 @@ package com.cqu.orderservice.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqu.commonutils.JwtUtils;
 import com.cqu.commonutils.R;
+import com.cqu.orderservice.client.EduClient;
 import com.cqu.orderservice.entity.TOrder;
 import com.cqu.orderservice.service.TOrderService;
 import io.swagger.annotations.Api;
@@ -51,7 +52,6 @@ public class TOrderController {
         QueryWrapper<TOrder> wrapper=new QueryWrapper<>();
         wrapper.eq("order_no",orderId);
         TOrder one = orderService.getOne(wrapper);
-
         return R.ok().data("item",one);
     }
 

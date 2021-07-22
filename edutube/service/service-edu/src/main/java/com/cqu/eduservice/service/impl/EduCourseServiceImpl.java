@@ -10,11 +10,8 @@ import com.cqu.eduservice.entity.frontvo.CourseWebVo;
 import com.cqu.eduservice.entity.vo.CourseInfoVo;
 import com.cqu.eduservice.entity.vo.CoursePublishVo;
 import com.cqu.eduservice.mapper.EduCourseMapper;
-import com.cqu.eduservice.service.EduChapterService;
-import com.cqu.eduservice.service.EduCourseDescriptionService;
-import com.cqu.eduservice.service.EduCourseService;
+import com.cqu.eduservice.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cqu.eduservice.service.EduVideoService;
 import com.cqu.servicebase.exceptionhandler.MyException;
 import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
@@ -43,6 +40,8 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Autowired
     private EduCourseDescriptionService courseDescriptionService;
 
+    @Autowired
+    private EduTeacherService eduTeacherService;
     @Autowired
     private EduVideoService eduVideoService;
 
@@ -196,7 +195,9 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Override
     public CourseWebVo getBaseCourseInfo(String courseId) {
-        return baseMapper.getBaseCourseInfo(courseId);
+        CourseWebVo courseWebVo=baseMapper.getBaseCourseInfo(courseId);
+        //if(courseWebVo==null)System.out.println("courseWebVo is null!!");
+        return courseWebVo;
     }
 
     @Override

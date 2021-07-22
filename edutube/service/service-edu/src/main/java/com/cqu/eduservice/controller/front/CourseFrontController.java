@@ -89,8 +89,8 @@ public class CourseFrontController {
 
     // 根据课程id查询课程信息
     @ApiOperation(value = "根据课程id查看课程信息(订单)")
-    @GetMapping("getCourseInfoOrder/{id}")
-    public R getCourseInfoOrder(@PathVariable String id){
+    @PostMapping("getCourseInfoOrder/{id}")
+    public CourseWebVoOrder getCourseInfoOrder(@PathVariable String id){
 
         CourseWebVo courseInfo = courseService.getBaseCourseInfo(id);
 
@@ -98,7 +98,7 @@ public class CourseFrontController {
 
         BeanUtils.copyProperties(courseInfo,courseWebVoOrder);
 
-        return R.ok().data("courseOrder",courseWebVoOrder);
+        return courseWebVoOrder;
     }
 
     @ApiOperation(value = "获取前4新的课程的轮播图")
