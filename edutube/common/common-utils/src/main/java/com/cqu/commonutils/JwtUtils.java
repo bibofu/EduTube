@@ -71,7 +71,8 @@ public class JwtUtils {
         if(StringUtils.isEmpty(jwtToken)) {
             return "";
         }
-        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
+        Jws<Claims> claimsJws =
+                Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         Claims claims = claimsJws.getBody();
         return (String)claims.get("id");
     }

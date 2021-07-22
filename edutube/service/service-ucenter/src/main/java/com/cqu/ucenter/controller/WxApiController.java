@@ -65,11 +65,13 @@ public class WxApiController {
                 Member member = memberService.getByOpenId(openid);
                 if(member==null) {
                     System.out.println("新用户注册");
-                    String baseUserInfoUrl = "https://api.weixin.qq.com/sns/userinfo" + "?access_token=%s" + "&openid=%s";
+                    String baseUserInfoUrl = "https://api.weixin.qq.com/sns/userinfo" +
+                            "?access_token=%s" + "&openid=%s";
                     String userInfoUrl = String.format(baseUserInfoUrl, accessToken, openid);
                     resultUserInfo = HttpClientUtils.get(userInfoUrl);
                     //解析json
-                    HashMap<String, Object> mapUserInfo = gson.fromJson(resultUserInfo,HashMap.class);
+                    HashMap<String, Object> mapUserInfo =
+                            gson.fromJson(resultUserInfo,HashMap.class);
                     String nickname = (String)mapUserInfo.get("nickname");
                     String headimgurl = (String)mapUserInfo.get("headimgurl");
                     member = new Member();

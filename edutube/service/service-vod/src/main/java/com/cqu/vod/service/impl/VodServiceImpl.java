@@ -72,10 +72,12 @@ public class VodServiceImpl implements VodService {
 
     @Override
     public void removeById(String id) {
-
         try {
             //初始化对象
-            DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
+            DefaultAcsClient client =
+                    InitVodClient.initVodClient(
+                            ConstantVodUtils.ACCESS_KEY_ID,
+                            ConstantVodUtils.ACCESS_KEY_SECRET);
             //创建删除视频request对象
             DeleteVideoRequest request = new DeleteVideoRequest();
             //向request设置视频id
@@ -117,10 +119,15 @@ public class VodServiceImpl implements VodService {
     @Override
     public String getAuthById(String id) {
         try {
-            DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
-            GetVideoPlayAuthRequest getVideoPlayAuthRequest = new GetVideoPlayAuthRequest();
+            DefaultAcsClient client =
+                    InitVodClient.initVodClient(
+                            ConstantVodUtils.ACCESS_KEY_ID,
+                            ConstantVodUtils.ACCESS_KEY_SECRET);
+            GetVideoPlayAuthRequest getVideoPlayAuthRequest =
+                    new GetVideoPlayAuthRequest();
             getVideoPlayAuthRequest.setVideoId(id);
-            GetVideoPlayAuthResponse response = client.getAcsResponse(getVideoPlayAuthRequest);
+            GetVideoPlayAuthResponse response =
+                    client.getAcsResponse(getVideoPlayAuthRequest);
             String Auth=response.getPlayAuth();
             dailyClient.updateVideoViewNum();
             return Auth;
