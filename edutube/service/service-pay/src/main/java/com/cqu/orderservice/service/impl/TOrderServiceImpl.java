@@ -70,10 +70,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         order.setPayType(1);  //支付类型 ，微信1
 
         baseMapper.insert(order);
-        //返回订单号
-        /*if(userInfoOrder==null)System.out.println("userInfoOrder is null!");
-        else System.out.println(userInfoOrder);
-        if(courseInfoOrder==null)System.out.println("courseInfoOrder is null!");*/
+
         return order.getOrderNo();
     }
 }

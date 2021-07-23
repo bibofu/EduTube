@@ -52,8 +52,6 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     /**
      * 向课程表和课程描述表添加数据
-     *
-     * @param courseInfoVo
      */
     @Override
     public String saveCourseInfo(CourseInfoVo courseInfoVo) {

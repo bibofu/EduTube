@@ -35,6 +35,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     @Autowired
     private StatisticsClient statisticsClient;
+
     @Override
     public String login(LoginVo loginVo,String date) {
         String mobile = loginVo.getMobile();

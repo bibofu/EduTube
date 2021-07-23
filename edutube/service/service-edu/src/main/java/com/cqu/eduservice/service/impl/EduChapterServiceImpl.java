@@ -94,7 +94,6 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         } else { //不能查询数据，进行删除
             //删除章节
             int result = baseMapper.deleteById(chapterId);
-            //成功  1>0   0>0
             return result>0;
         }
     }
