@@ -109,7 +109,7 @@ public class MemberDescriptionController {
             QueryWrapper<Member>wrapper=new QueryWrapper<>();
             wrapper.eq("mobile",loginVo.getMobile());
             Member member1=memberService.getOne(wrapper);
-            if(member1!=null)
+            if(member1!=null&&!member1.getId().equals(memberId))
             {
                 return R.error().message("手机号已注册！");
             }
